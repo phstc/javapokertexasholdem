@@ -1,0 +1,6 @@
+.DS_Store
+*~
+*.swp
+*.class
+mkmf.log
+target/*
