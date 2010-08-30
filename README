@@ -1,0 +1,33 @@
+It's a Java SE Video Poker implemention (using TDD JUnit)
+
+To play
+
+GameTexasHoldem game = new GameTexasHoldem();
+game.newGame();
+game.deal();
+game.callFlop();
+game.betRiver();
+game.betTurn();
+game.getWinner();
+
+game.getWinner() return GameEnum
+
+public enum GameEnum {
+	PLAYER_WINNER, 
+	DEALER_WINNER, 
+	DRAW_GAME, 
+	PLAYER_WINNER_BEST_RANKING, 
+	DEALER_WINNER_BEST_RANKING, 
+	PLAYER_WINNER_HIGH_CARD, 
+	DEALER_WINNER_HIGH_CARD
+} 
+
+Performance Test
+
+* Macbook pro
+* HD ATA de 320 GB (5.400 rpm)
+* Memory 4GB 1066MHz DDR3 SDRAM - 2x2GB
+* Processor 2.53GHz Intel Core 2 Duo
+* O.S. Snow Leopard
+* 100000 executions = 10 seconds
+* 10000 executions = 2 seconds
