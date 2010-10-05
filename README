@@ -1,4 +1,4 @@
-Is a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
+It's a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
 
 To play
 
@@ -10,7 +10,7 @@ game.betRiver();
 game.betTurn();
 game.getWinner();
 
-game.getWinner() return GameEnum
+The game.getWinner() method returns GameEnum
 
 public enum GameEnum {
 	PLAYER_WINNER, 
