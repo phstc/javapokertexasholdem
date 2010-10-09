@@ -3,7 +3,6 @@ package com.cantero.games.pokertexas;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,13 +19,18 @@ public class GameTexasHoldemRunner {
 		long minutes = seconds / 60;
 		System.out.println("minutes: " + minutes + ", seconds: " + seconds);
 
-		//getStatsSimple
-		getStatsSimple("/Users/pablo/Desktop/stats - simple.csv", 100000);
-		System.out.println("getStatsSimple - OK");
+		String currDir = System.getProperty("user.dir");
+		
+	    //getStatsSimple
+	    String simpleFileName = currDir+"/stats - simple.csv";
+	    getStatsSimple(simpleFileName, 100000);
+	    System.out.println("getStatsSimple - OK - " + simpleFileName);
 
-		//getStatsFull
-		getStatsFull("/Users/pablo/Desktop/stats - full.csv", 100000);
-		System.out.println("getStatsFull - OK");
+	    //getStatsFull
+	    String fullFileName = currDir+"/stats - full.csv";
+	    getStatsFull(fullFileName, 100000);
+	    System.out.println("getStatsFull - OK - " + fullFileName);
+
 	}
 
 	private static void getStatsFull(String path, int executions)
@@ -122,7 +126,7 @@ public class GameTexasHoldemRunner {
 	 * 10000 executions = 2 seconds
 	 */
 	private static long getMilliSecondsToExecute(int executions) {
-		long timeToMillisInitial = (new Date()).getTime();
+		long timeToMillisInitial = System.currentTimeMillis();
 		for (int i = 0; i < executions; i++) {
 			GameTexasHoldem game = new GameTexasHoldem();
 			game.newGame();
@@ -133,7 +137,7 @@ public class GameTexasHoldemRunner {
 			game.getWinner();
 			game.endGame();
 		}
-		long timeToMillisFinal = (new Date()).getTime();
+		long timeToMillisFinal = System.currentTimeMillis();
 		long milliSeconds = (timeToMillisFinal - timeToMillisInitial);
 		return milliSeconds;
 	}
