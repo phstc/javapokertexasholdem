@@ -26,7 +26,7 @@ The game.getWinner() method returns GameEnum that contains the result of the gam
 		DEALER_WINNER_HIGH_CARD
 	} 
 
-=== My local performance test
+=== Performance test
 
 * Macbook pro
 * HD ATA de 320 GB (5.400 rpm)
