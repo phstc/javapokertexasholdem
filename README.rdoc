@@ -1,6 +1,6 @@
 == It's a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
 
-=== Check out the following example:
+=== Check out the following example
 
 	GameTexasHoldem game = new GameTexasHoldem();
 	game.newGame();
