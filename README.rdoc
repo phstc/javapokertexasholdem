@@ -10,7 +10,7 @@
 	game.betTurn();
 	GameEnum result = game.getWinner();
 
-The game.getWinner() method returns GameEnum that contains the Game Result
+The game.getWinner() method returns GameEnum that contains the result of the game
 
 	public enum GameEnum {
 		PLAYER_WINNER, 
