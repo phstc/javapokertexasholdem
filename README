@@ -1,28 +1,28 @@
-It's a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
+== It's a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
 
-To play
+=== Check out the following example:
 
-GameTexasHoldem game = new GameTexasHoldem();
-game.newGame();
-game.deal();
-game.callFlop();
-game.betRiver();
-game.betTurn();
-game.getWinner();
+	GameTexasHoldem game = new GameTexasHoldem();
+	game.newGame();
+	game.deal();
+	game.callFlop();
+	game.betRiver();
+	game.betTurn();
+	GameEnum result = game.getWinner();
 
-The game.getWinner() method returns GameEnum
+The game.getWinner() method returns GameEnum that contains the Game Result
 
-public enum GameEnum {
-	PLAYER_WINNER, 
-	DEALER_WINNER, 
-	DRAW_GAME, 
-	PLAYER_WINNER_BEST_RANKING, 
-	DEALER_WINNER_BEST_RANKING, 
-	PLAYER_WINNER_HIGH_CARD, 
-	DEALER_WINNER_HIGH_CARD
-} 
+	public enum GameEnum {
+		PLAYER_WINNER, 
+		DEALER_WINNER, 
+		DRAW_GAME, 
+		PLAYER_WINNER_BEST_RANKING, 
+		DEALER_WINNER_BEST_RANKING, 
+		PLAYER_WINNER_HIGH_CARD, 
+		DEALER_WINNER_HIGH_CARD
+	} 
 
-Performance Test
+=== My local performance test
 
 * Macbook pro
 * HD ATA de 320 GB (5.400 rpm)
