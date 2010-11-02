@@ -9,6 +9,10 @@
 	game.betRiver();
 	game.betTurn();
 	GameEnum result = game.getWinner();
+	//To see the cards/hand
+	//game.getTableCards(); 
+	//game.getPlayer().getCards();
+	//game.getDealer().getCards();
 
 The game.getWinner() method returns GameEnum that contains the result of the game
 
