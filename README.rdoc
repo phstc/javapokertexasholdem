@@ -9,10 +9,15 @@
 	game.betRiver();
 	game.betTurn();
 	GameEnum result = game.getWinner();
+	
 	//To see the cards/hand
 	//game.getTableCards(); 
 	//game.getPlayer().getCards();
 	//game.getDealer().getCards();
+	
+	//To see the ranking
+	//player.getRankingEnum();
+	//dealer.getRankingEnum();
 
 The game.getWinner() method returns GameEnum that contains the result of the game
 
@@ -24,6 +29,21 @@ The game.getWinner() method returns GameEnum that contains the result of the gam
 		DEALER_WINNER_BEST_RANKING, 
 		PLAYER_WINNER_HIGH_CARD, 
 		DEALER_WINNER_HIGH_CARD
+	}
+
+The Player.getRankingEnum() method returns RankingEnum that contains the ranking of the player/dealer
+	
+	public static enum RankingEnum {
+		ROYAL_FLUSH, 
+		STRAIGHT_FLUSH, 
+		FOUR_OF_A_KIND, 
+		FULL_HOUSE, 
+		FLUSH, 
+		STRAIGHT, 
+		THREE_OF_A_KIND, 
+		TWO_PAIR, 
+		ONE_PAIR, 
+		HIGH_CARD
 	} 
 
 === Performance test
