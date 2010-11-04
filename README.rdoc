@@ -1,5 +1,14 @@
 == It's a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
 
+You can see the Texas Hold'em Video Poker implementation in action on
+http://pablocantero.com/javapokertexasholdem-demo/ 
+
+The javapokertexasholdem-demo is not part of this implemetation, it's a external project
+
+The Texas Hold'em Video Poker implementation is only a 'core engine' without presentation tier
+
+My suggest is to use this project like a library, if your system use other types of card or game flow, the best way is encapsulate this implementation in Adaptar, Decorator, Proxy or other design patterns 
+
 === Check out the following example
 
 	GameTexasHoldem game = new GameTexasHoldem();
