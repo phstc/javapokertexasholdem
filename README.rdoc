@@ -1,7 +1,6 @@
 == It's a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
 
-You can see the Texas Hold'em Video Poker implementation in action on
-http://pablocantero.com/javapokertexasholdem-demo/ 
+You can see the Texas Hold'em Video Poker implementation in action on http://pablocantero.com/javapokertexasholdem-demo
 
 The javapokertexasholdem-demo is not part of this implemetation, it's a external project
 
