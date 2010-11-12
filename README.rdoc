@@ -11,9 +11,9 @@ My suggest is to use this project like a black box library, if your system use o
 === Check out the following example
 
 	GameTexasHoldem game = new GameTexasHoldem();
-	IPlayer player = new Player();
-	IPlayer dealer = new Player();
-	game.newGame(new Deck(), dealer, player);
+	IPlayer homer = new Player();
+	IPlayer flanders = new Player();
+	game.newGame(new Deck(), homer, bart);
 	game.deal();
 	game.callFlop();
 	game.betRiver();
@@ -23,12 +23,12 @@ My suggest is to use this project like a black box library, if your system use o
 	if(winnerList.size() > 1){
 		//DRAW GAME
 	} 
-	if(winnerList.contains(player)) {
-		//PLAYER WINNER
+	if(winnerList.contains(homer)) {
+		//HOMER WINNER
 		//WINNER HAND: winner.getRankingEnum();
 	} 
-	if(winnerList.contains(dealer)) {
-		//DEALER WINNER
+	if(winnerList.contains(flanders)) {
+		//FLANDERS WINNER
 		//WINNER HAND: winner.getRankingEnum();
 	}
 	
@@ -36,10 +36,10 @@ My suggest is to use this project like a black box library, if your system use o
 	//game.getTableCards(); 
 	
 	//To see the player ranking
-	//player.getRankingEnum();
-	//dealer.getRankingEnum();
+	//homer.getRankingEnum();
+	//flanders.getRankingEnum();
 
-The Player.getRankingEnum() method returns RankingEnum that contains the ranking of the player/dealer
+The IPlayer.getRankingEnum() method returns RankingEnum that contains the actual ranking of the player
 	
 	public static enum RankingEnum {
 		ROYAL_FLUSH, 
