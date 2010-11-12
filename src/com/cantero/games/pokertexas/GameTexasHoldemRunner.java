@@ -66,7 +66,6 @@ public class GameTexasHoldemRunner {
 			} else {
 				retLine += "Draw Game";
 			}
-			game.endGame();
 			Long count = statsSimple.get(retLine);
 			if (count != null) {
 				statsSimple.put(retLine, count + 1);
@@ -98,7 +97,6 @@ public class GameTexasHoldemRunner {
 			game.betTurn();
 			game.betRiver();
 			IPlayer winner = game.getWinner().get(0);
-			game.endGame();
 			Long count = statsSimple.get(winner.getRankingEnum());
 			if (count != null) {
 				statsSimple.put(winner.getRankingEnum(), count + 1);
@@ -140,7 +138,6 @@ public class GameTexasHoldemRunner {
 			game.betTurn();
 			game.betRiver();
 			game.getWinner();
-			game.endGame();
 		}
 		long timeToMillisFinal = System.currentTimeMillis();
 		return (timeToMillisFinal - timeToMillisInitial);

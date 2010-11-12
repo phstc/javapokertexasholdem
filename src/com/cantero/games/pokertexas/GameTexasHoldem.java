@@ -27,12 +27,6 @@ public class GameTexasHoldem implements Serializable {
 		players.addAll(Arrays.asList(_players));
 	}
 
-	public void endGame() {
-		deck = null;
-		tableCards = null;
-		players = null;
-	}
-
 	//To abandon the game
 	public void removePlayer(IPlayer player) {
 		players.remove(player);
