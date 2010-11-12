@@ -13,7 +13,7 @@ My suggest is to use this project like a black box library, if your system use o
 	GameTexasHoldem game = new GameTexasHoldem();
 	IPlayer homer = new Player();
 	IPlayer flanders = new Player();
-	game.newGame(new Deck(), homer, bart);
+	game.newGame(new Deck(), homer, flanders);
 	game.deal();
 	game.callFlop();
 	game.betRiver();
