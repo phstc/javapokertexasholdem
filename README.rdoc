@@ -6,7 +6,7 @@ The javapokertexasholdem-demo is not part of this implemetation, it's external p
 
 The Texas Hold'em Poker implementation is only a 'core engine' without presentation tier
 
-My suggest is to use this project like a black box library, if your system use other types of card or game flow, the best way is encapsulate this implementation in an Adapter, Decorator, Proxy or other design patterns 
+My suggest is to use this project like a black box library. If your system uses other types of card or game flow, the best way is encapsulate this implementation in an Adapter, Decorator, Proxy or other design patterns 
 
 === Check out the following example
 
