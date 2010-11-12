@@ -33,11 +33,12 @@ My suggest is to use this project like a black box library, if your system use o
 	}
 	
 	//The table cards
-	//game.getTableCards(); 
+	game.getTableCards(); 
 	
-	//To see the player ranking
-	//homer.getRankingEnum();
-	//flanders.getRankingEnum();
+	//To get the player actual ranking
+	homer.getRankingEnum();
+	flanders.getRankingEnum();
+	//IPlayer.getRankingEnum() can be changed in deal, call flop, bet river and bet turn steps
 
 The IPlayer.getRankingEnum() method returns RankingEnum that contains the actual ranking of the player
 	
