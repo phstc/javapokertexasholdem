@@ -6,14 +6,16 @@ The javapokertexasholdem-demo is not part of this implemetation, it's external p
 
 The Texas Hold'em Poker implementation is only a 'core engine' without presentation tier
 
-My suggest is to use this project like a black box library. If your system uses other types of card or game flow, the best way is encapsulate this implementation in an Adapter, Decorator, Proxy or other design patterns 
+My suggest is to use this project like a black box library. If your system uses other types of card or game flow, the best way is encapsulate it, in an Adapter, Decorator, Proxy or other design patterns 
 
 === Check out the following example
 
 	GameTexasHoldem game = new GameTexasHoldem();
 	IPlayer homer = new Player();
 	IPlayer flanders = new Player();
-	game.newGame(new Deck(), homer, flanders);
+	IDeck deck = new Deck();
+	//The Deck and Player used in the GameTexasHoldem are interfaces. GameTexasHoldem avoids strong relationships
+	game.newGame(deck, homer, flanders);
 	game.deal();
 	game.callFlop();
 	game.betRiver();
