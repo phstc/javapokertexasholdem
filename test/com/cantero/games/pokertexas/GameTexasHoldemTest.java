@@ -1,398 +1,405 @@
 package com.cantero.games.pokertexas;
 
-import junit.framework.TestCase;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.ACE;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_10;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_2;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_3;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_4;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_5;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_6;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_7;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_9;
+import static com.cantero.games.pokertexas.Card.CardRankEnum.QUEEN;
+import static com.cantero.games.pokertexas.Card.CardSuitEnum.CLUBS;
+import static com.cantero.games.pokertexas.Card.CardSuitEnum.DIAMONDS;
+import static com.cantero.games.pokertexas.Card.CardSuitEnum.HEARTS;
+import static com.cantero.games.pokertexas.Card.CardSuitEnum.SPADES;
+import static junit.framework.Assert.assertEquals;
+
+import java.util.List;
 
 import org.junit.Test;
 
-import com.cantero.games.pokertexas.Card;
-import com.cantero.games.pokertexas.GameTexasHoldem;
-import com.cantero.games.pokertexas.Card.CardRankEnum;
-import com.cantero.games.pokertexas.Card.CardSuitEnum;
-import com.cantero.games.pokertexas.GameTexasHoldem.GameEnum;
 import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
 
-public class GameTexasHoldemTest extends TestCase {
+public class GameTexasHoldemTest {
 
 	@Test
-	public void testPlayerWinDrawGameBestRanking() {
+	public void testDrawGameFourPlayers() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player1 = new Player();
+		IPlayer player2 = new Player();
+		IPlayer player3 = new Player();
+		IPlayer player4 = new Player();
+		game.newGame(new Deck(), player1, player2, player3, player4);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_10));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.ACE));
+		game.getTableCards().add(new Card(SPADES, CARD_10));
+		game.getTableCards().add(new Card(SPADES, ACE));
+		player1.getCards()[0] = new Card(DIAMONDS, CARD_2);
+		player1.getCards()[1] = new Card(SPADES, CARD_3);
+		player2.getCards()[0] = new Card(CLUBS, CARD_2);
+		player2.getCards()[1] = new Card(HEARTS, CARD_3);
+		player3.getCards()[0] = new Card(SPADES, CARD_2);
+		player3.getCards()[1] = new Card(DIAMONDS, CARD_3);
+		player4.getCards()[0] = new Card(HEARTS, CARD_2);
+		player4.getCards()[1] = new Card(CLUBS, CARD_3);
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(4, winnerList.size());
+	}
 
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_2);
+	@Test
+	public void testDrawGameTwoPlayers() {
+		//Basic tests
+		GameTexasHoldem game = new GameTexasHoldem();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
+		game.deal();
+		game.callFlop();
+		game.betRiver();
+		game.betTurn();
+		game.getTableCards().clear();
+		game.getTableCards().add(new Card(SPADES, CARD_10));
+		game.getTableCards().add(new Card(SPADES, ACE));
+		dealer.getCards()[0] = new Card(DIAMONDS, CARD_2);
+		dealer.getCards()[1] = new Card(SPADES, CARD_2);
+		player.getCards()[0] = new Card(CLUBS, CARD_2);
+		player.getCards()[1] = new Card(HEARTS, CARD_2);
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(2, winnerList.size());
+		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+	}
 
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_2);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.ACE);
-
-		assertEquals(GameEnum.PLAYER_WINNER_BEST_RANKING, game.getWinner());
-		assertEquals(RankingEnum.ONE_PAIR, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, game.getPlayer().getRankingEnum());
+	@Test
+	public void testPlayerWinDrawGameBestRanking() {
+		//Basic tests
+		GameTexasHoldem game = new GameTexasHoldem();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
+		game.deal();
+		game.callFlop();
+		game.betRiver();
+		game.betTurn();
+		game.getTableCards().clear();
+		game.getTableCards().add(new Card(SPADES, CARD_10));
+		game.getTableCards().add(new Card(SPADES, ACE));
+		dealer.getCards()[0] = new Card(CLUBS, CARD_10);
+		dealer.getCards()[1] = new Card(HEARTS, CARD_2);
+		player.getCards()[0] = new Card(CLUBS, CARD_2);
+		player.getCards()[1] = new Card(HEARTS, ACE);
+		//assertEquals(GameEnum.PLAYER_WINNER_BEST_RANKING, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(player, winnerList.get(0));
+		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
 	}
 
 	@Test
 	public void testDealerWinDrawGameHighCard() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_10));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.ACE);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_2);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_10);
-
-		assertEquals(GameEnum.DEALER_WINNER_HIGH_CARD, game.getWinner());
-		assertEquals(RankingEnum.ONE_PAIR, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_10));
+		dealer.getCards()[0] = new Card(CLUBS, CARD_10);
+		dealer.getCards()[1] = new Card(HEARTS, ACE);
+		player.getCards()[0] = new Card(CLUBS, CARD_2);
+		player.getCards()[1] = new Card(HEARTS, CARD_10);
+		//assertEquals(GameEnum.DEALER_WINNER_HIGH_CARD, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(dealer, winnerList.get(0));
+		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
 	}
 
 	@Test
 	public void testDealerWinStraighFlush() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player1 = new Player();
+		IPlayer player2 = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player1, player2, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_3));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_4));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_5));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.CLUBS, CardRankEnum.QUEEN));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_6);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_7);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_10);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-
-		assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.STRAIGHT_FLUSH, game.getDealer()
-				.getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_3));
+		game.getTableCards().add(new Card(SPADES, CARD_4));
+		game.getTableCards().add(new Card(SPADES, CARD_5));
+		game.getTableCards().add(new Card(CLUBS, QUEEN));
+		dealer.getCards()[0] = new Card(SPADES, CARD_6);
+		dealer.getCards()[1] = new Card(SPADES, CARD_7);
+		player1.getCards()[0] = new Card(SPADES, CARD_10);
+		player1.getCards()[1] = new Card(DIAMONDS, CARD_10);
+		player2.getCards()[0] = new Card(SPADES, CARD_2);
+		player2.getCards()[1] = new Card(DIAMONDS, CARD_2);
+		//assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(dealer, winnerList.get(0));
+		assertEquals(RankingEnum.STRAIGHT_FLUSH, dealer.getRankingEnum());
+		assertEquals(RankingEnum.ONE_PAIR, player1.getRankingEnum());
 	}
 
 	@Test
 	public void testPlayerWinFourOfAKind() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_3));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_4));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_10));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.ACE);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_2);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_10);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-
-		assertEquals(GameEnum.PLAYER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.ONE_PAIR, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.FOUR_OF_A_KIND, game.getPlayer()
-				.getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_3));
+		game.getTableCards().add(new Card(SPADES, CARD_4));
+		game.getTableCards().add(new Card(HEARTS, CARD_10));
+		game.getTableCards().add(new Card(CLUBS, CARD_10));
+		dealer.getCards()[0] = new Card(SPADES, ACE);
+		dealer.getCards()[1] = new Card(SPADES, CARD_2);
+		player.getCards()[0] = new Card(SPADES, CARD_10);
+		player.getCards()[1] = new Card(DIAMONDS, CARD_10);
+		//assertEquals(GameEnum.PLAYER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(player, winnerList.get(0));
+		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(RankingEnum.FOUR_OF_A_KIND, player.getRankingEnum());
 	}
 
 	@Test
 	public void testDealerWinFullHouse() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_3));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_4));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_10));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_3);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_3);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_10);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_2);
-
-		assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.FULL_HOUSE, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.THREE_OF_A_KIND, game.getPlayer()
-				.getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_3));
+		game.getTableCards().add(new Card(SPADES, CARD_4));
+		game.getTableCards().add(new Card(HEARTS, CARD_10));
+		game.getTableCards().add(new Card(CLUBS, CARD_10));
+		dealer.getCards()[0] = new Card(HEARTS, CARD_3);
+		dealer.getCards()[1] = new Card(CLUBS, CARD_3);
+		player.getCards()[0] = new Card(SPADES, CARD_10);
+		player.getCards()[1] = new Card(SPADES, CARD_2);
+		//assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(dealer, winnerList.get(0));
+		assertEquals(RankingEnum.FULL_HOUSE, dealer.getRankingEnum());
+		assertEquals(RankingEnum.THREE_OF_A_KIND, player.getRankingEnum());
 	}
 
 	@Test
 	public void testPlayerWinFlush() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_3));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_4));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_7));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_5);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_6);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_10);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_2);
-
-		assertEquals(GameEnum.PLAYER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.STRAIGHT, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.FLUSH, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_3));
+		game.getTableCards().add(new Card(SPADES, CARD_4));
+		game.getTableCards().add(new Card(SPADES, CARD_7));
+		dealer.getCards()[0] = new Card(HEARTS, CARD_5);
+		dealer.getCards()[1] = new Card(CLUBS, CARD_6);
+		player.getCards()[0] = new Card(SPADES, CARD_10);
+		player.getCards()[1] = new Card(SPADES, CARD_2);
+		//assertEquals(GameEnum.PLAYER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(player, winnerList.get(0));
+		assertEquals(RankingEnum.STRAIGHT, dealer.getRankingEnum());
+		assertEquals(RankingEnum.FLUSH, player.getRankingEnum());
 	}
 
 	@Test
 	public void testDealerWinStraight() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_3));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_4));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_7));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_5);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_6);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_10);
-
-		assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.STRAIGHT, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_3));
+		game.getTableCards().add(new Card(SPADES, CARD_4));
+		game.getTableCards().add(new Card(SPADES, CARD_7));
+		dealer.getCards()[0] = new Card(HEARTS, CARD_5);
+		dealer.getCards()[1] = new Card(CLUBS, CARD_6);
+		player.getCards()[0] = new Card(CLUBS, CARD_10);
+		player.getCards()[1] = new Card(HEARTS, CARD_10);
+		//assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(dealer, winnerList.get(0));
+		assertEquals(RankingEnum.STRAIGHT, dealer.getRankingEnum());
+		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
 	}
 
 	@Test
 	public void testDealerWinThreeOfAKind() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_10));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.ACE));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.ACE);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.ACE);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_6);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.QUEEN);
-
-		assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.THREE_OF_A_KIND, game.getDealer()
-				.getRankingEnum());
-		assertEquals(RankingEnum.HIGH_CARD, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_10));
+		game.getTableCards().add(new Card(SPADES, ACE));
+		dealer.getCards()[0] = new Card(HEARTS, ACE);
+		dealer.getCards()[1] = new Card(CLUBS, ACE);
+		player.getCards()[0] = new Card(CLUBS, CARD_6);
+		player.getCards()[1] = new Card(HEARTS, QUEEN);
+		//assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(dealer, winnerList.get(0));
+		assertEquals(RankingEnum.THREE_OF_A_KIND, dealer.getRankingEnum());
+		assertEquals(RankingEnum.HIGH_CARD, player.getRankingEnum());
 	}
 
 	@Test
 	public void testPlayerWinTwoPair() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_10));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.ACE));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_10);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.QUEEN);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.ACE);
-
-		assertEquals(GameEnum.PLAYER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.ONE_PAIR, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.TWO_PAIR, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_10));
+		game.getTableCards().add(new Card(SPADES, ACE));
+		dealer.getCards()[0] = new Card(HEARTS, CARD_10);
+		dealer.getCards()[1] = new Card(HEARTS, QUEEN);
+		player.getCards()[0] = new Card(CLUBS, CARD_10);
+		player.getCards()[1] = new Card(HEARTS, ACE);
+		//assertEquals(GameEnum.PLAYER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(player, winnerList.get(0));
+		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(RankingEnum.TWO_PAIR, player.getRankingEnum());
 	}
 
 	@Test
 	public void testDealerWinOnePair() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_10));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_7);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.ACE);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.QUEEN);
-
-		assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
-		assertEquals(RankingEnum.ONE_PAIR, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.HIGH_CARD, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_10));
+		dealer.getCards()[0] = new Card(CLUBS, CARD_10);
+		dealer.getCards()[1] = new Card(HEARTS, CARD_7);
+		player.getCards()[0] = new Card(CLUBS, ACE);
+		player.getCards()[1] = new Card(HEARTS, QUEEN);
+		//assertEquals(GameEnum.DEALER_WINNER, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(dealer, winnerList.get(0));
+		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(RankingEnum.HIGH_CARD, player.getRankingEnum());
 	}
 
 	@Test
 	public void testDrawGameOnePairDealerWinSecondHighCard() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-
-		game.getTableCards().add(
-				new Card(CardSuitEnum.DIAMONDS, CardRankEnum.CARD_6));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.CLUBS, CardRankEnum.QUEEN));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.DIAMONDS, CardRankEnum.CARD_9));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.DIAMONDS, CardRankEnum.ACE));
-		game.getTableCards().add(
-				new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_6));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-		Card highCardDealer = new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_2);
-		game.getDealer().getCards()[1] = highCardDealer;
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_10);
-		Card highCardPlayer = new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_3);
-		game.getPlayer().getCards()[1] = highCardPlayer;
-
-		assertEquals(GameEnum.PLAYER_WINNER_HIGH_CARD, game.getWinner());
-		assertEquals(RankingEnum.ONE_PAIR, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, game.getPlayer().getRankingEnum());
-		assertEquals(highCardPlayer, game.getPlayer().getHighCard());
-		assertEquals(highCardDealer, game.getDealer().getHighCard());
+		game.getTableCards().add(new Card(DIAMONDS, CARD_6));
+		game.getTableCards().add(new Card(CLUBS, QUEEN));
+		game.getTableCards().add(new Card(DIAMONDS, CARD_9));
+		game.getTableCards().add(new Card(DIAMONDS, ACE));
+		game.getTableCards().add(new Card(CLUBS, CARD_6));
+		dealer.getCards()[0] = new Card(DIAMONDS, CARD_10);
+		Card highCardDealer = new Card(SPADES, CARD_2);
+		dealer.getCards()[1] = highCardDealer;
+		player.getCards()[0] = new Card(HEARTS, CARD_10);
+		Card highCardPlayer = new Card(SPADES, CARD_3);
+		player.getCards()[1] = highCardPlayer;
+		//assertEquals(GameEnum.PLAYER_WINNER_HIGH_CARD, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(player, winnerList.get(0));
+		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+		assertEquals(highCardPlayer, player.getHighCard());
+		assertEquals(highCardDealer, dealer.getHighCard());
 	}
 
 	@Test
 	public void testPlayerWinHighCard() {
 		//Basic tests
 		GameTexasHoldem game = new GameTexasHoldem();
-		game.newGame();
+		IPlayer player = new Player();
+		IPlayer dealer = new Player();
+		game.newGame(new Deck(), player, dealer);
 		game.deal();
 		game.callFlop();
 		game.betRiver();
 		game.betTurn();
 		game.getTableCards().clear();
-		game.getTableCards().add(
-				new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_4));
-
-		game.getDealer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		game.getDealer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_7);
-
-		game.getPlayer().getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.ACE);
-		game.getPlayer().getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.QUEEN);
-
-		assertEquals(GameEnum.PLAYER_WINNER_BEST_RANKING, game.getWinner());
-		assertEquals(RankingEnum.HIGH_CARD, game.getDealer().getRankingEnum());
-		assertEquals(RankingEnum.HIGH_CARD, game.getPlayer().getRankingEnum());
+		game.getTableCards().add(new Card(SPADES, CARD_4));
+		dealer.getCards()[0] = new Card(CLUBS, CARD_10);
+		dealer.getCards()[1] = new Card(HEARTS, CARD_7);
+		player.getCards()[0] = new Card(CLUBS, ACE);
+		player.getCards()[1] = new Card(HEARTS, QUEEN);
+		//assertEquals(GameEnum.PLAYER_WINNER_BEST_RANKING, game.getWinner());
+		List<IPlayer> winnerList = game.getWinner();
+		assertEquals(1, winnerList.size());
+		assertEquals(player, winnerList.get(0));
+		assertEquals(RankingEnum.HIGH_CARD, dealer.getRankingEnum());
+		assertEquals(RankingEnum.HIGH_CARD, player.getRankingEnum());
 	}
 }

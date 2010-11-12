@@ -1,43 +1,45 @@
-== It's a Java SE implemention for Texas Hold'em Video Poker  (using TDD JUnit)
+== It's a Java SE implemention for Texas Hold'em Poker
 
-You can see the Texas Hold'em Video Poker implementation in action on http://pablocantero.com/javapokertexasholdem-demo
+You can see the Texas Hold'em Poker implementation in action on http://pablocantero.com/javapokertexasholdem-demo
 
 The javapokertexasholdem-demo is not part of this implemetation, it's a external project
 
-The Texas Hold'em Video Poker implementation is only a 'core engine' without presentation tier
+The Texas Hold'em Poker implementation is only a 'core engine' without presentation tier
 
 My suggest is to use this project like a library, if your system use other types of card or game flow, the best way is encapsulate this implementation in an Adapter, Decorator, Proxy or other design patterns 
 
 === Check out the following example
 
 	GameTexasHoldem game = new GameTexasHoldem();
-	game.newGame();
+	IPlayer player = new Player();
+	IPlayer dealer = new Player();
+	game.newGame(new Deck(), dealer, player);
 	game.deal();
 	game.callFlop();
 	game.betRiver();
 	game.betTurn();
-	GameEnum result = game.getWinner();
+	List<IPlayer> winnerList = game.getWinner();
+	
+	if(winnerList.size() > 1){
+		//DRAW GAME
+	} 
+	if(winnerList.contains(player)) {
+		//PLAYER WINNER
+		//WINNER HAND: winner.getRankingEnum();
+	} 
+	if(winnerList.contains(dealer)) {
+		//DEALER WINNER
+		//WINNER HAND: winner.getRankingEnum();
+	}
 	
 	//To see the cards/hand
 	//game.getTableCards(); 
 	//game.getPlayer().getCards();
 	//game.getDealer().getCards();
 	
-	//To see the ranking
+	//To see the player ranking
 	//player.getRankingEnum();
 	//dealer.getRankingEnum();
-
-The game.getWinner() method returns GameEnum that contains the result of the game
-
-	public enum GameEnum {
-		PLAYER_WINNER, 
-		DEALER_WINNER, 
-		DRAW_GAME, 
-		PLAYER_WINNER_BEST_RANKING, 
-		DEALER_WINNER_BEST_RANKING, 
-		PLAYER_WINNER_HIGH_CARD, 
-		DEALER_WINNER_HIGH_CARD
-	}
 
 The Player.getRankingEnum() method returns RankingEnum that contains the ranking of the player/dealer
 	
@@ -56,10 +58,44 @@ The Player.getRankingEnum() method returns RankingEnum that contains the ranking
 
 === Performance test
 
+GameTexasHoldemRunner.main execute this performance tests and output two CSV reposts 
+
 * Macbook pro
 * HD ATA de 320 GB (5.400 rpm)
 * Memory 4GB 1066MHz DDR3 SDRAM - 2x2GB
 * Processor 2.53GHz Intel Core 2 Duo
 * O.S. Snow Leopard
-* 100000 executions = 10 seconds
-* 10000 executions = 2 seconds
+* 100000 executions = 6 seconds
+* 10000 executions = 1 seconds
+
+==== Reports 
+
+Example for 10000 executions 
+
+	executions: 10000, minutes: 0, seconds: 1
+	getStatsSimple - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-simple.csv
+	getStatsFull - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-full.csv
+	
+===== getStatsSimple's header
+
+Columns:
+ 
+* STATS = RankingEnum winner
+* COUNT = is how many times the same ranking winner name occurs
+* PERCENT = is the percentual of the COUNT compared with all executions
+
+===== getStatsFull's header
+
+Columns: 
+
+* DEALER DEAL = dealer RankingEnum in the deal step
+* PLAYER DEAL = player RankingEnum in the deal step
+* DEALER CALL FLOP = dealer RankingEnum in the call flop step
+* PLAYER CALL FLOP = player RankingEnum in the call flop step
+* DEALER BET TURN = dealer RankingEnum in the bet turn step
+* PLAYER BET TURN = player RankingEnum in the bet turn step
+* DEALER BET RIVER = dealer RankingEnum in the bet river step
+* PLAYER BET RIVER = player RankingEnum in the bet river step
+* WINNER = winner name (player or dealer)
+* COUNT = is how many times the same game occurs
+* PERCENT = is the percentual of the COUNT compared with all executions

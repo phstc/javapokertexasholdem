@@ -2,9 +2,9 @@ package com.cantero.games.pokertexas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
 
@@ -12,185 +12,163 @@ public class GameTexasHoldem implements Serializable {
 
 	private static final long serialVersionUID = 967261359515323981L;
 
-	public enum GameEnum {
-		PLAYER_WINNER, DEALER_WINNER, DRAW_GAME, PLAYER_WINNER_BEST_RANKING, DEALER_WINNER_BEST_RANKING, PLAYER_WINNER_HIGH_CARD, DEALER_WINNER_HIGH_CARD
-	}
+	private IDeck deck;
 
-	private Random random;
-
-	private Deck deck;
-
-	private Player player;
-
-	private Player dealer;
+	private List<IPlayer> players;
 
 	private List<Card> tableCards;
 
-	public GameTexasHoldem(Random random) {
-		this.random = random;
-	}
-
-	public GameTexasHoldem() {
-		this(new Random());
-	}
-
-	public void newGame(Deck deck) {
+	public void newGame(IDeck deck, IPlayer player1, IPlayer... _players) {
 		this.deck = deck;
 		tableCards = new ArrayList<Card>();
-		dealer = new Player();
-		player = new Player();
-	}
-
-	public void newGame() {
-		deck = DeckFactory.getInstance().getDeck(random);
-		newGame(deck);
+		players = new ArrayList<IPlayer>();
+		//the game needs at least one player
+		players.add(player1);
+		players.addAll(Arrays.asList(_players));
 	}
 
 	public void endGame() {
 		deck = null;
 		tableCards = null;
-		player = null;
-		dealer = null;
+		players = null;
+	}
+
+	//To abandon the game
+	public void removePlayer(IPlayer player) {
+		players.remove(player);
 	}
 
 	public void deal() {
-		Assert.assertTrue(deck != null, "First call game.newGame()");
-		player.getCards()[0] = deck.pop();
-		player.getCards()[1] = deck.pop();
-		dealer.getCards()[0] = deck.pop();
-		dealer.getCards()[1] = deck.pop();
-		checkPlayerAndDealerRanking();
+		for (IPlayer player : players) {
+			player.getCards()[0] = deck.pop();
+			player.getCards()[1] = deck.pop();
+		}
+		checkPlayersRanking();
 	}
 
 	/**
 	 * doble initial bet
 	 */
 	public void callFlop() {
-		Assert.assertTrue(deck.size() != 52, "First call game.deal()");
 		deck.pop();
 		tableCards.add(deck.pop());
 		tableCards.add(deck.pop());
 		tableCards.add(deck.pop());
-		checkPlayerAndDealerRanking();
+		checkPlayersRanking();
 	}
 
 	public void betTurn() {
-		Assert.assertTrue(deck.size() != 48, "First call game.callFlop()");
 		deck.pop();
 		tableCards.add(deck.pop());
-		checkPlayerAndDealerRanking();
+		checkPlayersRanking();
 	}
 
 	public void betRiver() {
-		Assert.assertTrue(deck.size() != 46, "First call game.betRiver()");
 		deck.pop();
 		tableCards.add(deck.pop());
-		checkPlayerAndDealerRanking();
+		checkPlayersRanking();
 	}
 
-	public GameEnum getWinner() {
-		checkPlayerAndDealerRanking();
-		Integer playerRank = RankingUtil.getRankingToInt(player);
-		Integer dealerRank = RankingUtil.getRankingToInt(dealer);
-
-		//Draw game
-		if (playerRank == dealerRank) {
-			//Si no es Flush/Color, prueba quien tiene la secuencia, pareja o trio m‡s grande,
-			//antes de probar la carta m‡s grande
-			if (player.getRankingEnum() != RankingEnum.FLUSH) {
-				GameEnum result = checkHighSequence(playerRank, dealerRank);
-				if (result != null) {
-					return result;
+	public List<IPlayer> getWinner() {
+		checkPlayersRanking();
+		List<IPlayer> winnerList = new ArrayList<IPlayer>();
+		IPlayer winner = players.get(0);
+		Integer winnerRank = RankingUtil.getRankingToInt(winner);
+		winnerList.add(winner);
+		for (int i = 1; i < players.size(); i++) {
+			IPlayer player = players.get(i);
+			Integer playerRank = RankingUtil.getRankingToInt(player);
+			//Draw game
+			if (winnerRank == playerRank) {
+				IPlayer highHandPlayer = null;
+				if (player.getRankingEnum() != RankingEnum.FLUSH) {
+					highHandPlayer = checkHighSequence(winner, player);
 				}
-			}
-			if (playerRank == dealerRank) {
-				GameEnum result = checkHighCardWinner();
-				if (result != null) {
-					return result;
+				//Draw checkHighSequence
+				if (highHandPlayer == null) {
+					highHandPlayer = checkHighCardWinner(winner, player);
 				}
+				//Not draw in checkHighSequence or checkHighCardWinner
+				if (highHandPlayer != null && !winner.equals(highHandPlayer)) {
+					winner = highHandPlayer;
+					winnerList.clear();
+					winnerList.add(winner);
+				} else if (highHandPlayer == null) {
+					//Draw in checkHighSequence and checkHighCardWinner
+					winnerList.add(winner);
+				}
+			} else if (winnerRank < playerRank) {
+				winner = player;
+				winnerList.clear();
+				winnerList.add(winner);
 			}
+			winnerRank = RankingUtil.getRankingToInt(winner);
 		}
 
-		if (playerRank > dealerRank) {
-			return GameEnum.PLAYER_WINNER;
-		}
-
-		if (playerRank < dealerRank) {
-			return GameEnum.DEALER_WINNER;
-		}
-
-		return GameEnum.DRAW_GAME;
+		return winnerList;
 	}
 
-	private GameEnum checkHighSequence(Integer playerRank, Integer dealerRank) {
-		playerRank = sumRankingList(player);
-		dealerRank = sumRankingList(dealer);
-		if (playerRank > dealerRank) {
-			return GameEnum.PLAYER_WINNER_BEST_RANKING;
-		}
-		if (playerRank < dealerRank) {
-			return GameEnum.DEALER_WINNER_BEST_RANKING;
+	private IPlayer checkHighSequence(IPlayer player1, IPlayer player2) {
+		Integer player1Rank = sumRankingList(player1);
+		Integer player2Rank = sumRankingList(player2);
+		if (player1Rank > player2Rank) {
+			return player1;
+		} else if (player1Rank < player2Rank) {
+			return player2;
 		}
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
-	private GameEnum checkHighCardWinner() {
-		GameEnum result = compareHighCard(player.getHighCard(), dealer
-				.getHighCard());
-		if (result == null) {
-			Card playerCard = RankingUtil.getHighCard(player,
+	private IPlayer checkHighCardWinner(IPlayer player1, IPlayer player2) {
+		IPlayer winner = compareHighCard(player1, player1.getHighCard(),
+				player2, player2.getHighCard());
+		if (winner == null) {
+			Card player1Card = RankingUtil.getHighCard(player1,
 					Collections.EMPTY_LIST);
-			Card dealerCard = RankingUtil.getHighCard(dealer,
+			Card player2Card = RankingUtil.getHighCard(player2,
 					Collections.EMPTY_LIST);
-			result = compareHighCard(playerCard, dealerCard);
-			if (result != null) {
-				player.setHighCard(playerCard);
-				dealer.setHighCard(dealerCard);
-			}
-			if (result == null) {
-				playerCard = getSecondHighCard(player, playerCard);
-				dealerCard = getSecondHighCard(dealer, dealerCard);
-				result = compareHighCard(playerCard, dealerCard);
-				if (result != null) {
-					player.setHighCard(playerCard);
-					dealer.setHighCard(dealerCard);
+			winner = compareHighCard(player1, player1Card, player2, player2Card);
+			if (winner != null) {
+				player1.setHighCard(player1Card);
+				player2.setHighCard(player2Card);
+			} else if (winner == null) {
+				player1Card = getSecondHighCard(player1, player1Card);
+				player2Card = getSecondHighCard(player2, player2Card);
+				winner = compareHighCard(player1, player1Card, player2,
+						player2Card);
+				if (winner != null) {
+					player1.setHighCard(player1Card);
+					player2.setHighCard(player2Card);
 				}
 			}
 		}
-		return result;
+		return winner;
 	}
 
-	private GameEnum compareHighCard(Card playerCard, Card dealerCard) {
-		if (playerCard.getRankToInt() > dealerCard.getRankToInt()) {
-			return GameEnum.PLAYER_WINNER_HIGH_CARD;
-		}
-		if (playerCard.getRankToInt() < dealerCard.getRankToInt()) {
-			return GameEnum.DEALER_WINNER_HIGH_CARD;
+	private IPlayer compareHighCard(IPlayer player1, Card player1HighCard,
+			IPlayer player2, Card player2HighCard) {
+		if (player1HighCard.getRankToInt() > player2HighCard.getRankToInt()) {
+			return player1;
+		} else if (player1HighCard.getRankToInt() < player2HighCard
+				.getRankToInt()) {
+			return player2;
 		}
 		return null;
 	}
 
-	private Card getSecondHighCard(Player player, Card card) {
+	private Card getSecondHighCard(IPlayer player, Card card) {
 		if (player.getCards()[0].equals(card)) {
 			return player.getCards()[1];
 		}
 		return player.getCards()[0];
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
-	public Player getDealer() {
-		return dealer;
-	}
-
 	public List<Card> getTableCards() {
 		return tableCards;
 	}
 
-	private Integer sumRankingList(Player player) {
+	private Integer sumRankingList(IPlayer player) {
 		Integer sum = 0;
 		for (Card card : player.getRankingList()) {
 			sum += card.getRankToInt();
@@ -198,8 +176,9 @@ public class GameTexasHoldem implements Serializable {
 		return sum;
 	}
 
-	private void checkPlayerAndDealerRanking() {
-		RankingUtil.checkRanking(player, tableCards);
-		RankingUtil.checkRanking(dealer, tableCards);
+	private void checkPlayersRanking() {
+		for (IPlayer player : players) {
+			RankingUtil.checkRanking(player, tableCards);
+		}
 	}
 }

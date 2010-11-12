@@ -1,27 +1,36 @@
 package com.cantero.games.pokertexas;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Deck implements Serializable {
+import com.cantero.games.pokertexas.Card.CardRankEnum;
+import com.cantero.games.pokertexas.Card.CardSuitEnum;
+
+public class Deck implements IDeck, Serializable {
 
 	private static final long serialVersionUID = 2463644121163649891L;
 
 	private List<Card> cards;
 	private Random random;
 
-	public Deck(List<Card> cards, Random random) {
-		this.cards = cards;
+	public Deck() {
+		this(new Random());
+	}
+
+	public Deck(Random random) {
 		this.random = random;
+		createDeck();
 	}
 
-	public List<Card> getCards() {
-		return cards;
-	}
-
-	public Integer size() {
-		return cards.size();
+	private void createDeck() {
+		cards = new ArrayList<Card>();
+		for (CardSuitEnum suit : Card.CardSuitEnum.values()) {
+			for (CardRankEnum rank : Card.CardRankEnum.values()) {
+				cards.add(new Card(suit, rank));
+			}
+		}
 	}
 
 	public Card pop() {

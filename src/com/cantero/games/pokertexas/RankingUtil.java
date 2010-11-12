@@ -29,7 +29,7 @@ public class RankingUtil {
 		ROYAL_FLUSH, STRAIGHT_FLUSH, FOUR_OF_A_KIND, FULL_HOUSE, FLUSH, STRAIGHT, THREE_OF_A_KIND, TWO_PAIR, ONE_PAIR, HIGH_CARD
 	}
 
-	public static Integer getRankingToInt(Player player) {
+	public static Integer getRankingToInt(IPlayer player) {
 		switch (player.getRankingEnum()) {
 		case ROYAL_FLUSH:
 			return 10;
@@ -55,7 +55,7 @@ public class RankingUtil {
 		return null;
 	}
 
-	public static void checkRanking(Player player, List<Card> tableCards) {
+	public static void checkRanking(IPlayer player, List<Card> tableCards) {
 
 		//HIGH_CARD
 		Card highCard = getHighCard(player, tableCards);
@@ -120,12 +120,13 @@ public class RankingUtil {
 		}
 		//HIGH_CARD
 		player.setRankingEnum(RankingEnum.HIGH_CARD);
-		player.setRankingList(new ArrayList<Card>());
-		player.getRankingList().add(highCard);
+		List<Card> highCardRankingList = new ArrayList<Card>();
+		highCardRankingList.add(highCard);
+		player.setRankingList(highCardRankingList);
 		return;
 	}
 
-	public static List<Card> getRoyalFlush(Player player, List<Card> tableCards) {
+	public static List<Card> getRoyalFlush(IPlayer player, List<Card> tableCards) {
 		if (!isSameSuit(player, tableCards)) {
 			return null;
 		}
@@ -144,17 +145,18 @@ public class RankingUtil {
 		return null;
 	}
 
-	public static List<Card> getStraightFlush(Player player,
+	public static List<Card> getStraightFlush(IPlayer player,
 			List<Card> tableCards) {
 		return getSequence(player, tableCards, 5, true);
 	}
 
-	public static List<Card> getFourOfAKind(Player player, List<Card> tableCards) {
+	public static List<Card> getFourOfAKind(IPlayer player,
+			List<Card> tableCards) {
 		List<Card> mergedList = getMergedCardList(player, tableCards);
 		return checkPair(mergedList, 4);
 	}
 
-	public static List<Card> getFullHouse(Player player, List<Card> tableCards) {
+	public static List<Card> getFullHouse(IPlayer player, List<Card> tableCards) {
 		List<Card> mergedList = getMergedCardList(player, tableCards);
 		List<Card> threeList = checkPair(mergedList, 3);
 		if (threeList != null) {
@@ -168,7 +170,7 @@ public class RankingUtil {
 		return null;
 	}
 
-	public static List<Card> getFlush(Player player, List<Card> tableCards) {
+	public static List<Card> getFlush(IPlayer player, List<Card> tableCards) {
 		List<Card> mergedList = getMergedCardList(player, tableCards);
 		List<Card> flushList = new ArrayList<Card>();
 
@@ -192,17 +194,17 @@ public class RankingUtil {
 	}
 
 	//São 5 cartas seguidas de naipes diferentes, caso empate ganha aquele com a maior sequência.
-	public static List<Card> getStraight(Player player, List<Card> tableCards) {
+	public static List<Card> getStraight(IPlayer player, List<Card> tableCards) {
 		return getSequence(player, tableCards, 5, false);
 	}
 
-	public static List<Card> getThreeOfAKind(Player player,
+	public static List<Card> getThreeOfAKind(IPlayer player,
 			List<Card> tableCards) {
 		List<Card> mergedList = getMergedCardList(player, tableCards);
 		return checkPair(mergedList, 3);
 	}
 
-	public static List<Card> getTwoPair(Player player, List<Card> tableCards) {
+	public static List<Card> getTwoPair(IPlayer player, List<Card> tableCards) {
 		List<Card> mergedList = getMergedCardList(player, tableCards);
 		List<Card> twoPair1 = checkPair(mergedList, 2);
 		if (twoPair1 != null) {
@@ -216,12 +218,12 @@ public class RankingUtil {
 		return null;
 	}
 
-	public static List<Card> getOnePair(Player player, List<Card> tableCards) {
+	public static List<Card> getOnePair(IPlayer player, List<Card> tableCards) {
 		List<Card> mergedList = getMergedCardList(player, tableCards);
 		return checkPair(mergedList, 2);
 	}
 
-	public static Card getHighCard(Player player, List<Card> tableCards) {
+	public static Card getHighCard(IPlayer player, List<Card> tableCards) {
 		List<Card> allCards = new ArrayList<Card>();
 		allCards.addAll(tableCards);
 		allCards.add(player.getCards()[0]);
@@ -236,8 +238,8 @@ public class RankingUtil {
 		return highCard;
 	}
 
-	private static List<Card> getSequence(Player player, List<Card> tableCards,
-			Integer sequenceSize, Boolean compareSuit) {
+	private static List<Card> getSequence(IPlayer player,
+			List<Card> tableCards, Integer sequenceSize, Boolean compareSuit) {
 		List<Card> orderedList = getOrderedCardList(player, tableCards);
 		List<Card> sequenceList = new ArrayList<Card>();
 
@@ -265,7 +267,7 @@ public class RankingUtil {
 		return (sequenceList.size() == sequenceSize) ? sequenceList : null;
 	}
 
-	private static List<Card> getMergedCardList(Player player,
+	private static List<Card> getMergedCardList(IPlayer player,
 			List<Card> tableCards) {
 		List<Card> merged = new ArrayList<Card>();
 		merged.addAll(tableCards);
@@ -274,7 +276,7 @@ public class RankingUtil {
 		return merged;
 	}
 
-	private static List<Card> getOrderedCardList(Player player,
+	private static List<Card> getOrderedCardList(IPlayer player,
 			List<Card> tableCards) {
 		List<Card> ordered = getMergedCardList(player, tableCards);
 		Collections.sort(ordered, new Comparator<Card>() {
@@ -305,7 +307,7 @@ public class RankingUtil {
 		return null;
 	}
 
-	private static Boolean isSameSuit(Player player, List<Card> tableCards) {
+	private static Boolean isSameSuit(IPlayer player, List<Card> tableCards) {
 		CardSuitEnum suit = player.getCards()[0].getSuit();
 
 		if (!suit.equals(player.getCards()[1].getSuit())) {
@@ -321,7 +323,7 @@ public class RankingUtil {
 		return true;
 	}
 
-	private static List<CardRankEnum> toRankEnumList(Player player,
+	private static List<CardRankEnum> toRankEnumList(IPlayer player,
 			List<Card> tableCards) {
 		List<CardRankEnum> rankEnumList = new ArrayList<CardRankEnum>();
 
@@ -335,7 +337,7 @@ public class RankingUtil {
 		return rankEnumList;
 	}
 
-	private static void setRankingEnumAndList(Player player,
+	private static void setRankingEnumAndList(IPlayer player,
 			RankingEnum rankingEnum, List<Card> rankingList) {
 		player.setRankingEnum(rankingEnum);
 		player.setRankingList(rankingList);

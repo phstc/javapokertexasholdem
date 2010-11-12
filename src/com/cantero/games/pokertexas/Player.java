@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
 
-public class Player implements Serializable {
+public class Player implements IPlayer, Serializable {
 
 	private static final long serialVersionUID = 4664480702994610549L;
 

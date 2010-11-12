@@ -7,9 +7,6 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.cantero.games.pokertexas.Card;
-import com.cantero.games.pokertexas.Player;
-import com.cantero.games.pokertexas.RankingUtil;
 import com.cantero.games.pokertexas.Card.CardRankEnum;
 import com.cantero.games.pokertexas.Card.CardSuitEnum;
 import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
@@ -600,8 +597,7 @@ public class RankingTest extends TestCase {
 	private void setHighCard(Player player, List<Card> tableCards) {
 		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
 				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_9
-				);
+		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_9);
 
 		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
 		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
