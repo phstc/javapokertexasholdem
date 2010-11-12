@@ -32,10 +32,8 @@ My suggest is to use this project like a black box library, if your system use o
 		//WINNER HAND: winner.getRankingEnum();
 	}
 	
-	//To see the cards/hand
+	//The table cards
 	//game.getTableCards(); 
-	//game.getPlayer().getCards();
-	//game.getDealer().getCards();
 	
 	//To see the player ranking
 	//player.getRankingEnum();
