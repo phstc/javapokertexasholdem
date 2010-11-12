@@ -38,7 +38,7 @@ My suggest is to use this project like a black box library. If your system uses 
 	//To get the player actual ranking
 	homer.getRankingEnum();
 	flanders.getRankingEnum();
-	//IPlayer.getRankingEnum() can be changed in deal, call flop, bet river and bet turn steps
+	//IPlayer.getRankingEnum() can be changed in deal, call flop, bet river and bet turn
 
 The IPlayer.getRankingEnum() method returns RankingEnum that contains the actual ranking of the player
 	
