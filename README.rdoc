@@ -74,7 +74,7 @@ Example for 10000 executions
 	getStatsSimple - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-simple.csv
 	getStatsFull - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-full.csv
 	
-===== getStatsSimple's header
+===== getStatsSimple
 
 Columns:
  
@@ -82,7 +82,7 @@ Columns:
 * COUNT = is how many times the same ranking winner name occurs
 * PERCENT = is the percentual of the COUNT compared with all executions
 
-===== getStatsFull's header
+===== getStatsFull
 
 Columns: 
 
