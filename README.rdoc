@@ -29,11 +29,11 @@ My suggest is to use this project like a black box library. If your system uses 
 	} 
 	if(winnerList.contains(homer)) {
 		//HOMER WINNER
-		//WINNER HAND: winner.getRankingEnum();
+		//WINNER HAND: homer.getRankingEnum();
 	} 
 	if(winnerList.contains(flanders)) {
 		//FLANDERS WINNER
-		//WINNER HAND: winner.getRankingEnum();
+		//WINNER HAND: flanders.getRankingEnum();
 	}
 	
 	//The table cards
