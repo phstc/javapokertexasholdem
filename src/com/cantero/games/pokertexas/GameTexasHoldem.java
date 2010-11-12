@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
-
 public class GameTexasHoldem implements Serializable {
 
 	private static final long serialVersionUID = 967261359515323981L;
@@ -74,10 +72,7 @@ public class GameTexasHoldem implements Serializable {
 			Integer playerRank = RankingUtil.getRankingToInt(player);
 			//Draw game
 			if (winnerRank == playerRank) {
-				IPlayer highHandPlayer = null;
-				if (player.getRankingEnum() != RankingEnum.FLUSH) {
-					highHandPlayer = checkHighSequence(winner, player);
-				}
+				IPlayer highHandPlayer = checkHighSequence(winner, player);
 				//Draw checkHighSequence
 				if (highHandPlayer == null) {
 					highHandPlayer = checkHighCardWinner(winner, player);
@@ -151,6 +146,9 @@ public class GameTexasHoldem implements Serializable {
 		return null;
 	}
 
+	/*
+	 * TODO This method must be moved to RankingUtil
+	 */
 	private Card getSecondHighCard(IPlayer player, Card card) {
 		if (player.getCards()[0].equals(card)) {
 			return player.getCards()[1];
@@ -162,6 +160,9 @@ public class GameTexasHoldem implements Serializable {
 		return tableCards;
 	}
 
+	/*
+	 * TODO This method must be moved to RankingUtil
+	 */
 	private Integer sumRankingList(IPlayer player) {
 		Integer sum = 0;
 		for (Card card : player.getRankingList()) {
