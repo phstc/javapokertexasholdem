@@ -61,7 +61,7 @@ The IPlayer.getRankingEnum() method returns RankingEnum that contains the actual
 
 === Performance test
 
-GameTexasHoldemRunner.main execute this performance tests and output two CSV reposts 
+GameTexasHoldemRunner.main() execute this performance tests and output two CSV reposts 
 
 * Macbook pro
 * HD ATA de 320 GB (5.400 rpm)
