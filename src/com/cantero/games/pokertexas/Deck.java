@@ -1,39 +1,52 @@
 package com.cantero.games.pokertexas;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import com.cantero.games.pokertexas.Card.CardRankEnum;
-import com.cantero.games.pokertexas.Card.CardSuitEnum;
+import java.util.Stack;
 
 public class Deck implements IDeck, Serializable {
 
 	private static final long serialVersionUID = 2463644121163649891L;
 
-	private List<Card> cards;
-	private Random random;
-
+	private Stack<ICard> cards;
+	
 	public Deck() {
-		this(new Random());
+		cards = new Stack<ICard>();
+		for (CardSuitEnum suit : CardSuitEnum.values()) {
+			for (CardRankEnum rank : CardRankEnum.values()) {
+				cards.push(CardFactory.getCard(suit, rank));
+			}
+		}
+		Collections.shuffle(cards);
+	}
+	
+	/**
+	 * Constructor for tests, where a specific order is needed
+	 * @param cards the cards of the deck
+	 */
+	public Deck(List<ICard> cards) {
+		this.cards = new Stack<ICard>();
+		this.cards.addAll(cards);
 	}
 
+	@Deprecated
 	public Deck(Random random) {
-		this.random = random;
 		createDeck();
 	}
 
+	@Deprecated
 	private void createDeck() {
-		cards = new ArrayList<Card>();
-		for (CardSuitEnum suit : Card.CardSuitEnum.values()) {
-			for (CardRankEnum rank : Card.CardRankEnum.values()) {
-				cards.add(new Card(suit, rank));
+		cards = new Stack<ICard>();
+		for (CardSuitEnum suit : CardSuitEnum.values()) {
+			for (CardRankEnum rank : CardRankEnum.values()) {
+				cards.add(CardFactory.getCard(suit, rank));
 			}
 		}
 	}
 
-	public Card pop() {
-		return cards.remove(random.nextInt(cards.size()));
+	public ICard pop() {
+		return cards.pop();
 	}
 }

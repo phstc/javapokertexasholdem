@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
-
 public class GameTexasHoldemRunner {
 
 	public static void main(String[] args) throws IOException {

@@ -4,29 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import com.cantero.games.pokertexas.Card.CardRankEnum;
-import com.cantero.games.pokertexas.Card.CardSuitEnum;
+import static com.cantero.games.pokertexas.RankingEnum.*;
 
 /*
- * 	01) ROYAL_FLUSH,
- *	02) STRAIGHT_FLUSH,
- *	03) FOUR_OF_A_KIND,
- *	04) FULL_HOUSE,
- *	05) FLUSH,
- *	06) STRAIGHT,
- *	07) THREE_OF_A_KIND,
- *	08) TWO_PAIR,
- *	09) ONE_PAIR,
- *	10) HIGH_CARD
+ * 	ROYAL_FLUSH >
+ *	STRAIGHT_FLUSH >
+ *	FOUR_OF_A_KIND >
+ *	FULL_HOUSE >
+ *	FLUSH >
+ *	STRAIGHT >
+ *	THREE_OF_A_KIND >
+ *	TWO_PAIR >
+ *	ONE_PAIR >
+ *	HIGH_CARD
  */
 public class RankingUtil {
-
+/*
 	private RankingUtil() {
-	}
-
-	public static enum RankingEnum {
-		ROYAL_FLUSH, STRAIGHT_FLUSH, FOUR_OF_A_KIND, FULL_HOUSE, FLUSH, STRAIGHT, THREE_OF_A_KIND, TWO_PAIR, ONE_PAIR, HIGH_CARD
 	}
 
 	public static Integer getRankingToInt(IPlayer player) {
@@ -54,114 +48,461 @@ public class RankingUtil {
 		}
 		return null;
 	}
+*/
+	
+//	public static RankingEnum getRank(List<ICard> hand) {
+//		RankingEnum rank = null;
+//		
+//		if (hasRoyalFlush(hand))
+//			// Royal Flush
+//			rank = ROYAL_FLUSH;
+//		else if (hasStraightFlush(hand))
+//			rank = STRAIGHT_FLUSH;
+//		else if (hasFourOfAKind(hand))
+//			rank = FOUR_OF_A_KIND;
+//		else if (hasFullHouse(hand))
+//			rank = FULL_HOUSE;
+//		else if (hasFlush(hand)) 
+//			rank = FLUSH;
+//		else if (hasStraight(hand))
+//			rank = STRAIGHT;
+//		else if (hasThreeOfAKind(hand))
+//			rank = THREE_OF_A_KIND;
+//		else if (hasTwoPair(hand))
+//			rank = TWO_PAIR;
+//		else if (hasPair(hand))
+//			rank = ONE_PAIR;
+//		else
+//			rank = HIGH_CARD;
+//		
+//		return rank;
+//	}
+//	
+//	private static boolean hasPair(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	private static boolean hasTwoPair(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	private static boolean hasThreeOfAKind(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	private static boolean hasStraight(List<ICard> hand) {
+//		if (isStraight(hand))
+//			return true;
+//		
+//		return false;
+//	}
+//
+//	private static boolean hasFlush(List<ICard> hand) {
+//		if (isFlush(hand))
+//			return true;
+//		
+//		return false;
+//	}
+//
+//	private static boolean hasFullHouse(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	private static boolean hasFourOfAKind(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	private static boolean hasStraightFlush(List<ICard> hand) {
+//		if (isFlush(hand) && isStraight(hand))
+//			return true;
+//		
+//		return false;
+//	}
+//
+//	private static boolean hasRoyalFlush(List<ICard> hand) {
+//		if (isHighestAce(hand) && isFlush(hand) && isStraight(hand))
+//			return true;
+//
+//		return false;
+//	}
+//
+//	private static boolean isHighestAce(List<ICard> hand) {
+//		for (ICard card : hand)
+//			if (card.getRank() == CardRankEnum.ACE)
+//				// has ace
+//				return true;
+//		
+//		return false;
+//	}
+//
+//	private static boolean isFlush(List<ICard> hand) {
+//		boolean first = true;
+//		CardSuitEnum suit = null;
+//		for (ICard card : hand)
+//			if (first) {
+//				// initialize the suit
+//				suit = card.getSuit();
+//				first = false;
+//			}
+//			else if (suit != card.getSuit())
+//				// not a flush
+//				return false;
+//		
+//		return true;
+//	}
+//
+//	private static boolean isStraight(List<ICard> hand) {
+//		hand = getOrderedCardList(hand);
+//		
+//		boolean first = true;
+//		int previousRank = -1;
+//		for (ICard card : hand) {
+//			if (first) {
+//				// initialize previousRank with the lowest rank
+//				previousRank = card.getRankToInt();
+//				first = false;
+//			}
+//			else if (previousRank == card.getRankToInt()-1)
+//				// it's a sequence until now
+//				previousRank++;
+//			else
+//				// not a sequence
+//				return false;
+//		}
+//		
+//		return true;
+//	}
+//	
+//	private static List<ICard> getOrderedCardList(List<ICard> hand) {
+//		Collections.sort(hand, new Comparator<ICard>() {
+//
+//			public int compare(ICard c1, ICard c2) {
+//				return c1.getRankToInt() < c2.getRankToInt() ? -1 : 1;
+//			}
+//
+//		});
+//		
+//		return hand;
+//	}
+//
+//	public static ICard getHighCard(List<ICard> hand) {
+//		boolean first = true;
+//		ICard highCard = null;
+//		for (ICard card : hand)
+//			if (first) {
+//				// initialize highCard
+//				highCard = card;
+//				first = false;
+//			}
+//			else if (card.getRankToInt() > highCard.getRankToInt())
+//				// update highCard
+//				highCard = card;
+//		
+//		return highCard;
+//	}
+	
+//	@Deprecated
+//	public static RankingEnum getRank(List<ICard> hand, IPlayer player) {
+//
+//		//HIGH_CARD
+//		ICard highCard = getHighCard(hand);
+//		player.setHighCard(highCard);
+//
+//		//ROYAL_FLUSH
+//		List<ICard> rankingList = getRoyalFlush(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.ROYAL_FLUSH, rankingList);
+//			return ROYAL_FLUSH;
+//		}
+//		//STRAIGHT_FLUSH
+//		rankingList = getStraightFlush(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.STRAIGHT_FLUSH,
+////					rankingList);
+//			return STRAIGHT_FLUSH;
+//		}
+//		//FOUR_OF_A_KIND
+//		rankingList = getFourOfAKind(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.FOUR_OF_A_KIND,
+////					rankingList);
+//			return FOUR_OF_A_KIND;
+//		}
+//		//FULL_HOUSE
+//		rankingList = getFullHouse(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.FULL_HOUSE, rankingList);
+//			return FULL_HOUSE;
+//		}
+//		//FLUSH
+//		rankingList = getFlush(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.FLUSH, rankingList);
+//			return FLUSH;
+//		}
+//		//STRAIGHT
+//		rankingList = getStraight(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.STRAIGHT, rankingList);
+//			return STRAIGHT;
+//		}
+//		//THREE_OF_A_KIND
+//		rankingList = getThreeOfAKind(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.THREE_OF_A_KIND,
+////					rankingList);
+//			return THREE_OF_A_KIND;
+//		}
+//		//TWO_PAIR
+//		rankingList = getTwoPair(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.TWO_PAIR, rankingList);
+//			return TWO_PAIR;
+//		}
+//		//ONE_PAIR
+//		rankingList = getOnePair(hand);
+//		if (rankingList != null) {
+////			setRankingEnumAndList(player, RankingEnum.ONE_PAIR, rankingList);
+//			return ONE_PAIR;
+//		}
+//		//HIGH_CARD
+////		player.setRankingEnum(RankingEnum.HIGH_CARD);
+//		List<ICard> highCardRankingList = new ArrayList<ICard>();
+//		highCardRankingList.add(highCard);
+////		player.setRankingList(highCardRankingList);
+//		return HIGH_CARD;
+//	}
+	
+//	private static List<ICard> getOnePair(List<ICard> hand) {
+//		if (checkPair(hand, 2))
+//			return hand;
+//		
+//		return null;
+//	}
+//
+//	private static List<ICard> getTwoPair(List<ICard> hand) {
+//		if (checkTwoPair(hand, 2)) {
+//			//hand.
+//		}
+//		return null;
+//	}
+//
+//	private static List<ICard> getThreeOfAKind(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	private static List<ICard> getStraight(List<ICard> hand) {
+//		if (!isSequence(hand))
+//			// not straight
+//			return null;
+//		
+//		return hand;
+//	}
+//
+//	private static List<ICard> getFlush(List<ICard> hand) {
+//		if (!isSameSuit(hand))
+//			// not flush
+//			return null;
+//		
+//		return hand;
+//	}
+//
+//	private static List<ICard> getFullHouse(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	private static List<ICard> getFourOfAKind(List<ICard> hand) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	private static List<ICard> getStraightFlush(List<ICard> hand) {
+//		if (!isSameSuit(hand))
+//			// not a flush
+//			return null;
+//		
+//		if (!isSequence(hand))
+//			// not a straight
+//			return null;
+//		
+//		return hand;
+//	}
+//
+//	private static List<ICard> getRoyalFlush(List<ICard> hand) {
+//		if (!isHighestAce(hand) || !isSameSuit(hand) || !isSequence(hand))
+//			// not royal flush
+//			return null;
+//
+//		return hand;
+//	}
+	
+//	private static boolean checkTwoPair(List<ICard> hand, final int pairSize) {
+//		for (ICard card1 : hand) {
+//			// initialize counter
+//			int sameCount = 0;
+//			for (ICard card2 : hand)
+//				if (card1.getRank().equals(card2.getRank()))
+//					// found a pair
+//					sameCount++;
+//			
+//			if (sameCount == pairSize)
+//				// found the expected number of pairs
+//				return true;
+//		}
+//		
+//		return false;
+//	}
+//
+//	private static boolean checkPair(List<ICard> hand, final int pairSize) {
+//		for (ICard card1 : hand) {
+//			// initialize counter
+//			int sameCount = 0;
+//			for (ICard card2 : hand)
+//				if (card1.getRank().equals(card2.getRank()))
+//					// found a pair
+//					sameCount++;
+//			
+//			if (sameCount == pairSize)
+//				// found the expected number of pairs
+//				return true;
+//		}
+//		
+//		return false;
+//	}
+	
 
-	public static void checkRanking(IPlayer player, List<Card> tableCards) {
+	public static RankingEnum checkRanking(List<ICard> hand) {
 
+		List<ICard> handCopy = new ArrayList<ICard>();
+		
 		//HIGH_CARD
-		Card highCard = getHighCard(player, tableCards);
-		player.setHighCard(highCard);
+//		ICard highCard = getHighCard(hand);
+//		player.setHighCard(highCard);
 
 		//ROYAL_FLUSH
-		List<Card> rankingList = getRoyalFlush(player, tableCards);
+		List<ICard> rankingList = getRoyalFlush(hand);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.ROYAL_FLUSH, rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.ROYAL_FLUSH, rankingList);
+			return ROYAL_FLUSH;
 		}
 		//STRAIGHT_FLUSH
-		rankingList = getStraightFlush(player, tableCards);
+		
+		rankingList = getStraightFlush(hand);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.STRAIGHT_FLUSH,
-					rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.STRAIGHT_FLUSH,
+//					rankingList);
+			return STRAIGHT_FLUSH;
 		}
 		//FOUR_OF_A_KIND
-		rankingList = getFourOfAKind(player, tableCards);
+		handCopy.clear();
+		handCopy.addAll(hand);
+		rankingList = getFourOfAKind(handCopy);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.FOUR_OF_A_KIND,
-					rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.FOUR_OF_A_KIND,
+//					rankingList);
+			return FOUR_OF_A_KIND;
 		}
 		//FULL_HOUSE
-		rankingList = getFullHouse(player, tableCards);
+		handCopy.clear();
+		handCopy.addAll(hand);
+		rankingList = getFullHouse(handCopy);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.FULL_HOUSE, rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.FULL_HOUSE, rankingList);
+			return FULL_HOUSE;
 		}
 		//FLUSH
-		rankingList = getFlush(player, tableCards);
+		rankingList = getFlush(hand);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.FLUSH, rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.FLUSH, rankingList);
+			return FLUSH;
 		}
 		//STRAIGHT
-		rankingList = getStraight(player, tableCards);
+		rankingList = getStraight(hand);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.STRAIGHT, rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.STRAIGHT, rankingList);
+			return STRAIGHT;
 		}
 		//THREE_OF_A_KIND
-		rankingList = getThreeOfAKind(player, tableCards);
+		handCopy.clear();
+		handCopy.addAll(hand);
+		rankingList = getThreeOfAKind(handCopy);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.THREE_OF_A_KIND,
-					rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.THREE_OF_A_KIND,
+//					rankingList);
+			return THREE_OF_A_KIND;
 		}
 		//TWO_PAIR
-		rankingList = getTwoPair(player, tableCards);
+		handCopy.clear();
+		handCopy.addAll(hand);
+		rankingList = getTwoPair(handCopy);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.TWO_PAIR, rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.TWO_PAIR, rankingList);
+			return TWO_PAIR;
 		}
 		//ONE_PAIR
-		rankingList = getOnePair(player, tableCards);
+		handCopy.clear();
+		handCopy.addAll(hand);
+		rankingList = getOnePair(handCopy);
 		if (rankingList != null) {
-			setRankingEnumAndList(player, RankingEnum.ONE_PAIR, rankingList);
-			return;
+//			setRankingEnumAndList(player, RankingEnum.ONE_PAIR, rankingList);
+			return ONE_PAIR;
 		}
 		//HIGH_CARD
-		player.setRankingEnum(RankingEnum.HIGH_CARD);
-		List<Card> highCardRankingList = new ArrayList<Card>();
-		highCardRankingList.add(highCard);
-		player.setRankingList(highCardRankingList);
-		return;
+//		player.setRankingEnum(RankingEnum.HIGH_CARD);
+//		rankingList = new ArrayList<ICard>();
+//		rankingList.add(highCard);
+//		player.setRankingList(highCardRankingList);
+		return HIGH_CARD;
 	}
 
-	public static List<Card> getRoyalFlush(IPlayer player, List<Card> tableCards) {
-		if (!isSameSuit(player, tableCards)) {
+	public static List<ICard> getRoyalFlush(List<ICard> hand) {
+		ICard highCard = getHighCard(hand);
+		List<ICard> sequence = getSequence(hand, 5, true);
+		
+		if (highCard.getRank() != CardRankEnum.ACE || sequence == null)
 			return null;
-		}
-
-		List<CardRankEnum> rankEnumList = toRankEnumList(player, tableCards);
-
-		if (rankEnumList.contains(CardRankEnum.CARD_10)
-				&& rankEnumList.contains(CardRankEnum.JACK)
-				&& rankEnumList.contains(CardRankEnum.QUEEN)
-				&& rankEnumList.contains(CardRankEnum.KING)
-				&& rankEnumList.contains(CardRankEnum.ACE)) {
-
-			return getMergedCardList(player, tableCards);
-		}
-
-		return null;
+		
+		return sequence;
+//		if (!isSameSuit(hand)) {
+//			return null;
+//		}
+//
+//		List<CardRankEnum> rankEnumList = toRankEnumList(hand);
+//
+//		if (rankEnumList.contains(CardRankEnum.CARD_10)
+//				&& rankEnumList.contains(CardRankEnum.JACK)
+//				&& rankEnumList.contains(CardRankEnum.QUEEN)
+//				&& rankEnumList.contains(CardRankEnum.KING)
+//				&& rankEnumList.contains(CardRankEnum.ACE)) {
+//
+//			return hand; //getMergedCardList(player, tableCards);
+//		}
+//
+//		return null;
 	}
 
-	public static List<Card> getStraightFlush(IPlayer player,
-			List<Card> tableCards) {
-		return getSequence(player, tableCards, 5, true);
+	public static List<ICard> getStraightFlush(List<ICard> hand) {
+		return getSequence(hand, 5, true);
 	}
 
-	public static List<Card> getFourOfAKind(IPlayer player,
-			List<Card> tableCards) {
-		List<Card> mergedList = getMergedCardList(player, tableCards);
-		return checkPair(mergedList, 4);
+	public static List<ICard> getFourOfAKind(List<ICard> hand) {
+		//List<ICard> mergedList = getMergedCardList(player, tableCards);
+		return checkPair(hand, 4);
 	}
 
-	public static List<Card> getFullHouse(IPlayer player, List<Card> tableCards) {
-		List<Card> mergedList = getMergedCardList(player, tableCards);
-		List<Card> threeList = checkPair(mergedList, 3);
+	public static List<ICard> getFullHouse(List<ICard> hand) {
+		//List<ICard> mergedList = getMergedCardList(player, tableCards);
+		List<ICard> threeList = checkPair(hand, 3);
 		if (threeList != null) {
-			mergedList.removeAll(threeList);
-			List<Card> twoList = checkPair(mergedList, 2);
+			hand.removeAll(threeList);
+			List<ICard> twoList = checkPair(hand, 2);
 			if (twoList != null) {
 				threeList.addAll(twoList);
 				return threeList;
@@ -170,12 +511,12 @@ public class RankingUtil {
 		return null;
 	}
 
-	public static List<Card> getFlush(IPlayer player, List<Card> tableCards) {
-		List<Card> mergedList = getMergedCardList(player, tableCards);
-		List<Card> flushList = new ArrayList<Card>();
+	public static List<ICard> getFlush(List<ICard> hand) {
+		//List<ICard> mergedList = getMergedCardList(player, tableCards);
+		List<ICard> flushList = new ArrayList<ICard>();
 
-		for (Card card1 : mergedList) {
-			for (Card card2 : mergedList) {
+		for (ICard card1 : hand) {
+			for (ICard card2 : hand) {
 				if (card1.getSuit().equals(card2.getSuit())) {
 					if (!flushList.contains(card1)) {
 						flushList.add(card1);
@@ -193,23 +534,22 @@ public class RankingUtil {
 		return null;
 	}
 
-	//São 5 cartas seguidas de naipes diferentes, caso empate ganha aquele com a maior sequência.
-	public static List<Card> getStraight(IPlayer player, List<Card> tableCards) {
-		return getSequence(player, tableCards, 5, false);
+	//SÔøΩo 5 cartas seguidas de naipes diferentes, caso empate ganha aquele com a maior sequÔøΩncia.
+	public static List<ICard> getStraight(List<ICard> hand) {
+		return getSequence(hand, 5, false);
 	}
 
-	public static List<Card> getThreeOfAKind(IPlayer player,
-			List<Card> tableCards) {
-		List<Card> mergedList = getMergedCardList(player, tableCards);
-		return checkPair(mergedList, 3);
+	public static List<ICard> getThreeOfAKind(List<ICard> hand) {
+		//List<ICard> mergedList = getMergedCardList(player, tableCards);
+		return checkPair(hand, 3);
 	}
 
-	public static List<Card> getTwoPair(IPlayer player, List<Card> tableCards) {
-		List<Card> mergedList = getMergedCardList(player, tableCards);
-		List<Card> twoPair1 = checkPair(mergedList, 2);
+	public static List<ICard> getTwoPair(List<ICard> hand) {
+		//List<ICard> mergedList = getMergedCardList(player, tableCards);
+		List<ICard> twoPair1 = checkPair(hand, 2);
 		if (twoPair1 != null) {
-			mergedList.removeAll(twoPair1);
-			List<Card> twoPair2 = checkPair(mergedList, 2);
+			hand.removeAll(twoPair1);
+			List<ICard> twoPair2 = checkPair(hand, 2);
 			if (twoPair2 != null) {
 				twoPair1.addAll(twoPair2);
 				return twoPair1;
@@ -218,19 +558,14 @@ public class RankingUtil {
 		return null;
 	}
 
-	public static List<Card> getOnePair(IPlayer player, List<Card> tableCards) {
-		List<Card> mergedList = getMergedCardList(player, tableCards);
-		return checkPair(mergedList, 2);
+	public static List<ICard> getOnePair(List<ICard> hand) {
+		//List<ICard> mergedList = getMergedCardList(player, tableCards);
+		return checkPair(hand, 2);
 	}
 
-	public static Card getHighCard(IPlayer player, List<Card> tableCards) {
-		List<Card> allCards = new ArrayList<Card>();
-		allCards.addAll(tableCards);
-		allCards.add(player.getCards()[0]);
-		allCards.add(player.getCards()[1]);
-
-		Card highCard = allCards.get(0);
-		for (Card card : allCards) {
+	public static ICard getHighCard(List<ICard> hand) {
+		ICard highCard = hand.get(0);
+		for (ICard card : hand) {
 			if (card.getRankToInt() > highCard.getRankToInt()) {
 				highCard = card;
 			}
@@ -238,19 +573,18 @@ public class RankingUtil {
 		return highCard;
 	}
 
-	private static List<Card> getSequence(IPlayer player,
-			List<Card> tableCards, Integer sequenceSize, Boolean compareSuit) {
-		List<Card> orderedList = getOrderedCardList(player, tableCards);
-		List<Card> sequenceList = new ArrayList<Card>();
+	private static List<ICard> getSequence(List<ICard> hand, Integer sequenceSize, Boolean compareSuit) {
+		List<ICard> orderedList = getOrderedCardList(hand);
+		List<ICard> sequenceList = new ArrayList<ICard>();
 
-		Card cardPrevious = null;
-		for (Card card : orderedList) {
-			if (cardPrevious != null) {
-				if ((card.getRankToInt() - cardPrevious.getRankToInt()) == 1) {
+		ICard previousCard = null;
+		for (ICard card : orderedList) {
+			if (previousCard != null) {
+				if ((card.getRankToInt() - previousCard.getRankToInt()) == 1) {
 					if (!compareSuit
-							|| cardPrevious.getSuit().equals(card.getSuit())) {
+							|| previousCard.getSuit().equals(card.getSuit())) {
 						if (sequenceList.size() == 0) {
-							sequenceList.add(cardPrevious);
+							sequenceList.add(previousCard);
 						}
 						sequenceList.add(card);
 					}
@@ -261,39 +595,38 @@ public class RankingUtil {
 					sequenceList.clear();
 				}
 			}
-			cardPrevious = card;
+			previousCard = card;
 		}
 
 		return (sequenceList.size() == sequenceSize) ? sequenceList : null;
 	}
 
-	private static List<Card> getMergedCardList(IPlayer player,
-			List<Card> tableCards) {
-		List<Card> merged = new ArrayList<Card>();
+	@Deprecated
+	private static List<ICard> getMergedCardList(IPlayer player,
+			List<ICard> tableCards) {
+		List<ICard> merged = new ArrayList<ICard>();
 		merged.addAll(tableCards);
 		merged.add(player.getCards()[0]);
 		merged.add(player.getCards()[1]);
 		return merged;
 	}
 
-	private static List<Card> getOrderedCardList(IPlayer player,
-			List<Card> tableCards) {
-		List<Card> ordered = getMergedCardList(player, tableCards);
-		Collections.sort(ordered, new Comparator<Card>() {
+	private static List<ICard> getOrderedCardList(List<ICard> hand) {
+		Collections.sort(hand, new Comparator<ICard>() {
 
-			public int compare(Card c1, Card c2) {
+			public int compare(ICard c1, ICard c2) {
 				return c1.getRankToInt() < c2.getRankToInt() ? -1 : 1;
 			}
 
 		});
-		return ordered;
+		return hand;
 	}
 
-	private static List<Card> checkPair(List<Card> mergedList, Integer pairSize) {
-		List<Card> checkedPair = new ArrayList<Card>();
-		for (Card card1 : mergedList) {
+	private static List<ICard> checkPair(List<ICard> hand, Integer pairSize) {
+		List<ICard> checkedPair = new ArrayList<ICard>();
+		for (ICard card1 : hand) {
 			checkedPair.add(card1);
-			for (Card card2 : mergedList) {
+			for (ICard card2 : hand) {
 				if (!card1.equals(card2)
 						&& card1.getRank().equals(card2.getRank())) {
 					checkedPair.add(card2);
@@ -307,14 +640,11 @@ public class RankingUtil {
 		return null;
 	}
 
-	private static Boolean isSameSuit(IPlayer player, List<Card> tableCards) {
-		CardSuitEnum suit = player.getCards()[0].getSuit();
+	@Deprecated
+	private static Boolean isSameSuit(List<ICard> hand) {
+		CardSuitEnum suit = hand.get(0).getSuit();
 
-		if (!suit.equals(player.getCards()[1].getSuit())) {
-			return false;
-		}
-
-		for (Card card : tableCards) {
+		for (ICard card : hand) {
 			if (!card.getSuit().equals(suit)) {
 				return false;
 			}
@@ -323,11 +653,12 @@ public class RankingUtil {
 		return true;
 	}
 
+	@Deprecated
 	private static List<CardRankEnum> toRankEnumList(IPlayer player,
-			List<Card> tableCards) {
+			List<ICard> tableCards) {
 		List<CardRankEnum> rankEnumList = new ArrayList<CardRankEnum>();
 
-		for (Card card : tableCards) {
+		for (ICard card : tableCards) {
 			rankEnumList.add(card.getRank());
 		}
 
@@ -337,9 +668,11 @@ public class RankingUtil {
 		return rankEnumList;
 	}
 
+	@Deprecated
 	private static void setRankingEnumAndList(IPlayer player,
-			RankingEnum rankingEnum, List<Card> rankingList) {
+			RankingEnum rankingEnum, List<ICard> rankingList) {
 		player.setRankingEnum(rankingEnum);
 		player.setRankingList(rankingList);
 	}
+	
 }

@@ -2,20 +2,24 @@ package com.cantero.games.pokertexas;
 
 import java.util.List;
 
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
-
 public interface IPlayer {
-	public Card[] getCards();
+	public ICard[] getCards();
 
-	public List<Card> getRankingList();
+	public List<ICard> getRankingList();
 
-	public void setRankingList(List<Card> rankingList);
+	public void setRankingList(List<ICard> rankingList);
 
 	public RankingEnum getRankingEnum();
 
 	public void setRankingEnum(RankingEnum rankingEnum);
 
-	public Card getHighCard();
+	public ICard getHighCard();
 
-	public void setHighCard(Card highCard);
+	public void setHighCard(ICard highCard);
+	
+	public List<ICard> getHand();
+	
+	public void setHand(List<ICard> tableCards);
+	
+	public void setHand(List<ICard> palyerCards, List<ICard> tableCards);
 }

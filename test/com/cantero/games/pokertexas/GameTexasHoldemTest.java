@@ -1,27 +1,17 @@
 package com.cantero.games.pokertexas;
 
-import static com.cantero.games.pokertexas.Card.CardRankEnum.ACE;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_10;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_2;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_3;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_4;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_5;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_6;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_7;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_9;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.QUEEN;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.CLUBS;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.DIAMONDS;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.HEARTS;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.SPADES;
+import static com.cantero.games.pokertexas.CardSuitEnum.*;
+import static com.cantero.games.pokertexas.CardRankEnum.*;
 import static junit.framework.Assert.assertEquals;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
-
+/**
+ *@see com.cantero.games.pokertexas.NewGameTest
+ */
+@Deprecated
 public class GameTexasHoldemTest {
 
 	@Test
