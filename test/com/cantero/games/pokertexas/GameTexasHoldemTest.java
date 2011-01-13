@@ -1,26 +1,13 @@
 package com.cantero.games.pokertexas;
 
-import static com.cantero.games.pokertexas.Card.CardRankEnum.ACE;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_10;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_2;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_3;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_4;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_5;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_6;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_7;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.CARD_9;
-import static com.cantero.games.pokertexas.Card.CardRankEnum.QUEEN;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.CLUBS;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.DIAMONDS;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.HEARTS;
-import static com.cantero.games.pokertexas.Card.CardSuitEnum.SPADES;
 import static junit.framework.Assert.assertEquals;
 
 import java.util.List;
 
+import static org.bmnds.games.poker.texasholdem.RankingEnum.*;
+import static org.bmnds.games.poker.texasholdem.CardRankEnum.*;
+import static org.bmnds.games.poker.texasholdem.CardSuitEnum.*;
 import org.junit.Test;
-
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
 
 public class GameTexasHoldemTest {
 
@@ -72,8 +59,8 @@ public class GameTexasHoldemTest {
 		player.getCards()[1] = new Card(HEARTS, CARD_2);
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(2, winnerList.size());
-		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+		assertEquals(ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(ONE_PAIR, player.getRankingEnum());
 	}
 
 	@Test
@@ -98,8 +85,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(player, winnerList.get(0));
-		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+		assertEquals(ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(ONE_PAIR, player.getRankingEnum());
 	}
 
 	@Test
@@ -123,8 +110,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(dealer, winnerList.get(0));
-		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+		assertEquals(ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(ONE_PAIR, player.getRankingEnum());
 	}
 
 	@Test
@@ -154,8 +141,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(dealer, winnerList.get(0));
-		assertEquals(RankingEnum.STRAIGHT_FLUSH, dealer.getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, player1.getRankingEnum());
+		assertEquals(STRAIGHT_FLUSH, dealer.getRankingEnum());
+		assertEquals(ONE_PAIR, player1.getRankingEnum());
 	}
 
 	@Test
@@ -182,8 +169,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(player, winnerList.get(0));
-		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
-		assertEquals(RankingEnum.FOUR_OF_A_KIND, player.getRankingEnum());
+		assertEquals(ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(FOUR_OF_A_KIND, player.getRankingEnum());
 	}
 
 	@Test
@@ -210,8 +197,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(dealer, winnerList.get(0));
-		assertEquals(RankingEnum.FULL_HOUSE, dealer.getRankingEnum());
-		assertEquals(RankingEnum.THREE_OF_A_KIND, player.getRankingEnum());
+		assertEquals(FULL_HOUSE, dealer.getRankingEnum());
+		assertEquals(THREE_OF_A_KIND, player.getRankingEnum());
 	}
 
 	@Test
@@ -237,8 +224,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(player, winnerList.get(0));
-		assertEquals(RankingEnum.STRAIGHT, dealer.getRankingEnum());
-		assertEquals(RankingEnum.FLUSH, player.getRankingEnum());
+		assertEquals(STRAIGHT, dealer.getRankingEnum());
+		assertEquals(FLUSH, player.getRankingEnum());
 	}
 
 	@Test
@@ -264,8 +251,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(dealer, winnerList.get(0));
-		assertEquals(RankingEnum.STRAIGHT, dealer.getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+		assertEquals(STRAIGHT, dealer.getRankingEnum());
+		assertEquals(ONE_PAIR, player.getRankingEnum());
 	}
 
 	@Test
@@ -290,8 +277,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(dealer, winnerList.get(0));
-		assertEquals(RankingEnum.THREE_OF_A_KIND, dealer.getRankingEnum());
-		assertEquals(RankingEnum.HIGH_CARD, player.getRankingEnum());
+		assertEquals(THREE_OF_A_KIND, dealer.getRankingEnum());
+		assertEquals(HIGH_CARD, player.getRankingEnum());
 	}
 
 	@Test
@@ -316,8 +303,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(player, winnerList.get(0));
-		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
-		assertEquals(RankingEnum.TWO_PAIR, player.getRankingEnum());
+		assertEquals(ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(TWO_PAIR, player.getRankingEnum());
 	}
 
 	@Test
@@ -341,8 +328,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(dealer, winnerList.get(0));
-		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
-		assertEquals(RankingEnum.HIGH_CARD, player.getRankingEnum());
+		assertEquals(ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(HIGH_CARD, player.getRankingEnum());
 	}
 
 	@Test
@@ -372,8 +359,8 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(player, winnerList.get(0));
-		assertEquals(RankingEnum.ONE_PAIR, dealer.getRankingEnum());
-		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+		assertEquals(ONE_PAIR, dealer.getRankingEnum());
+		assertEquals(ONE_PAIR, player.getRankingEnum());
 		assertEquals(highCardPlayer, player.getHighCard());
 		assertEquals(highCardDealer, dealer.getHighCard());
 	}
@@ -399,7 +386,7 @@ public class GameTexasHoldemTest {
 		List<IPlayer> winnerList = game.getWinner();
 		assertEquals(1, winnerList.size());
 		assertEquals(player, winnerList.get(0));
-		assertEquals(RankingEnum.HIGH_CARD, dealer.getRankingEnum());
-		assertEquals(RankingEnum.HIGH_CARD, player.getRankingEnum());
+		assertEquals(HIGH_CARD, dealer.getRankingEnum());
+		assertEquals(HIGH_CARD, player.getRankingEnum());
 	}
 }

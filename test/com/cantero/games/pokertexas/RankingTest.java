@@ -7,9 +7,9 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.cantero.games.pokertexas.Card.CardRankEnum;
-import com.cantero.games.pokertexas.Card.CardSuitEnum;
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
+import static org.bmnds.games.poker.texasholdem.CardSuitEnum.*;
+import static org.bmnds.games.poker.texasholdem.CardRankEnum.*;
+import static org.bmnds.games.poker.texasholdem.RankingEnum.*;
 
 public class RankingTest extends TestCase {
 
@@ -31,10 +31,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setRoyalFlush(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.ROYAL_FLUSH, player.getRankingEnum());
+		assertEquals(ROYAL_FLUSH, player.getRankingEnum());
 		assertEquals(RankingUtil.getRoyalFlush(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(10), RankingUtil.getRankingToInt(player));
+		assertTrue(ROYAL_FLUSH.ordinal() == RankingUtil.getRankingToInt(player)); //RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -43,10 +43,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setStraightFlush(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.STRAIGHT_FLUSH, player.getRankingEnum());
+		assertEquals(STRAIGHT_FLUSH, player.getRankingEnum());
 		assertEquals(RankingUtil.getStraightFlush(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(9), RankingUtil.getRankingToInt(player));
+		assertTrue(STRAIGHT_FLUSH.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -55,10 +55,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setFourOfAKind(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.FOUR_OF_A_KIND, player.getRankingEnum());
+		assertEquals(FOUR_OF_A_KIND, player.getRankingEnum());
 		assertEquals(RankingUtil.getFourOfAKind(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(8), RankingUtil.getRankingToInt(player));
+		assertTrue(FOUR_OF_A_KIND.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -67,10 +67,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setFullHouse(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.FULL_HOUSE, player.getRankingEnum());
+		assertEquals(FULL_HOUSE, player.getRankingEnum());
 		assertEquals(RankingUtil.getFullHouse(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(7), RankingUtil.getRankingToInt(player));
+		assertTrue(FULL_HOUSE.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -79,10 +79,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setFlush(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.FLUSH, player.getRankingEnum());
+		assertEquals(FLUSH, player.getRankingEnum());
 		assertEquals(RankingUtil.getFlush(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(6), RankingUtil.getRankingToInt(player));
+		assertTrue(FLUSH.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -91,10 +91,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setStraight(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.STRAIGHT, player.getRankingEnum());
+		assertEquals(STRAIGHT, player.getRankingEnum());
 		assertEquals(RankingUtil.getStraight(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(5), RankingUtil.getRankingToInt(player));
+		assertTrue(STRAIGHT.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -103,10 +103,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setThreeOfAKind(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.THREE_OF_A_KIND, player.getRankingEnum());
+		assertEquals(THREE_OF_A_KIND, player.getRankingEnum());
 		assertEquals(RankingUtil.getThreeOfAKind(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(4), RankingUtil.getRankingToInt(player));
+		assertTrue(THREE_OF_A_KIND.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -115,10 +115,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setTwoPair(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.TWO_PAIR, player.getRankingEnum());
+		assertEquals(TWO_PAIR, player.getRankingEnum());
 		assertEquals(RankingUtil.getTwoPair(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(3), RankingUtil.getRankingToInt(player));
+		assertTrue(TWO_PAIR.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -127,10 +127,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setOnePair(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.ONE_PAIR, player.getRankingEnum());
+		assertEquals(ONE_PAIR, player.getRankingEnum());
 		assertEquals(RankingUtil.getOnePair(player, tableCards), player
 				.getRankingList());
-		assertEquals(new Integer(2), RankingUtil.getRankingToInt(player));
+		assertTrue(ONE_PAIR.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -139,10 +139,10 @@ public class RankingTest extends TestCase {
 		Player player = new Player();
 		setHighCard(player, tableCards);
 		RankingUtil.checkRanking(player, tableCards);
-		assertEquals(RankingEnum.HIGH_CARD, player.getRankingEnum());
+		assertEquals(HIGH_CARD, player.getRankingEnum());
 		assertEquals(RankingUtil.getHighCard(player, tableCards), player
 				.getRankingList().get(0));
-		assertEquals(new Integer(1), RankingUtil.getRankingToInt(player));
+		assertTrue(HIGH_CARD.ordinal() == RankingUtil.getRankingToInt(player));
 	}
 
 	@Test
@@ -164,13 +164,13 @@ public class RankingTest extends TestCase {
 	public void testIsRoyalFlushNotSequence() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS, CardRankEnum.JACK);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(CLUBS, JACK);
+		player.getCards()[1] = new Card(CLUBS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.QUEEN));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
+		tableCards.add(new Card(CLUBS, QUEEN));
+		tableCards.add(new Card(CLUBS, ACE));
+		tableCards.add(new Card(CLUBS, KING));
 
 		List<Card> royalFlushList = new ArrayList<Card>();
 		royalFlushList.addAll(tableCards);
@@ -185,13 +185,13 @@ public class RankingTest extends TestCase {
 	public void testIsNotRoyalFlushNotSameSuit() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE);
-		player.getCards()[1] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(CLUBS, ACE);
+		player.getCards()[1] = new Card(HEARTS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_3));
-		tableCards.add(new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_4));
+		tableCards.add(new Card(CLUBS, CARD_2));
+		tableCards.add(new Card(SPADES, CARD_3));
+		tableCards.add(new Card(SPADES, CARD_4));
 
 		assertNull(RankingUtil.getRoyalFlush(player, tableCards));
 	}
@@ -215,12 +215,12 @@ public class RankingTest extends TestCase {
 	public void testIsStraightFlushNotSequence() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_3);
+		player.getCards()[0] = new Card(CLUBS, CARD_2);
+		player.getCards()[1] = new Card(CLUBS, CARD_3);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_4));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_8));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_6));
+		tableCards.add(new Card(CLUBS, CARD_4));
+		tableCards.add(new Card(CLUBS, CARD_8));
+		tableCards.add(new Card(CLUBS, CARD_6));
 
 		assertNull(RankingUtil.getStraightFlush(player, tableCards));
 	}
@@ -229,12 +229,12 @@ public class RankingTest extends TestCase {
 	public void testIsNotStraightFlushNoSameSuit() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_3);
+		player.getCards()[0] = new Card(CLUBS, CARD_2);
+		player.getCards()[1] = new Card(CLUBS, CARD_3);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_4));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_5));
-		tableCards.add(new Card(CardSuitEnum.DIAMONDS, CardRankEnum.CARD_6));
+		tableCards.add(new Card(CLUBS, CARD_4));
+		tableCards.add(new Card(CLUBS, CARD_5));
+		tableCards.add(new Card(DIAMONDS, CARD_6));
 
 		assertNull(RankingUtil.getStraightFlush(player, tableCards));
 	}
@@ -259,14 +259,14 @@ public class RankingTest extends TestCase {
 	public void testIsNotFourOfAKind() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(CLUBS, CARD_10));
+		tableCards.add(new Card(HEARTS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 
 		assertNull(RankingUtil.getFourOfAKind(player, tableCards));
 	}
@@ -290,12 +290,12 @@ public class RankingTest extends TestCase {
 
 	@Test
 	public void testIsNotFullHouse() {
-		Card cardThree1 = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10);
-		Card cardThree2 = new Card(CardSuitEnum.HEARTS, CardRankEnum.ACE);
-		Card cardThree3 = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10);
+		Card cardThree1 = new Card(CLUBS, CARD_10);
+		Card cardThree2 = new Card(HEARTS, ACE);
+		Card cardThree3 = new Card(CLUBS, CARD_10);
 
-		Card cardTwo1 = new Card(CardSuitEnum.CLUBS, CardRankEnum.JACK);
-		Card cardTwo2 = new Card(CardSuitEnum.HEARTS, CardRankEnum.JACK);
+		Card cardTwo1 = new Card(CLUBS, JACK);
+		Card cardTwo2 = new Card(HEARTS, JACK);
 
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
@@ -329,14 +329,14 @@ public class RankingTest extends TestCase {
 	public void testIsNotFlush() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(CLUBS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(HEARTS, CARD_2));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 
 		assertNull(RankingUtil.getFlush(player, tableCards));
 	}
@@ -360,13 +360,13 @@ public class RankingTest extends TestCase {
 	public void testIsNotStraight() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_2);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_3);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_2);
+		player.getCards()[1] = new Card(CLUBS, CARD_3);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_8));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_6));
+		tableCards.add(new Card(CLUBS, CARD_8));
+		tableCards.add(new Card(HEARTS, CARD_2));
+		tableCards.add(new Card(SPADES, CARD_6));
 
 		assertNull(RankingUtil.getStraight(player, tableCards));
 	}
@@ -391,14 +391,14 @@ public class RankingTest extends TestCase {
 	public void testIsNotThreeOfAKind() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(CLUBS, CARD_2));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 
 		assertNull(RankingUtil.getThreeOfAKind(player, tableCards));
 	}
@@ -421,12 +421,12 @@ public class RankingTest extends TestCase {
 
 	@Test
 	public void testIsNotTwoPair() {
-		Card cardThree1 = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10);
-		Card cardThree2 = new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_10);
-		Card cardThree3 = new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_10);
+		Card cardThree1 = new Card(CLUBS, CARD_10);
+		Card cardThree2 = new Card(HEARTS, CARD_10);
+		Card cardThree3 = new Card(SPADES, CARD_10);
 
-		Card cardTwo1 = new Card(CardSuitEnum.CLUBS, CardRankEnum.JACK);
-		Card cardTwo2 = new Card(CardSuitEnum.HEARTS, CardRankEnum.JACK);
+		Card cardTwo1 = new Card(CLUBS, JACK);
+		Card cardTwo2 = new Card(HEARTS, JACK);
 
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
@@ -459,14 +459,14 @@ public class RankingTest extends TestCase {
 	public void testIsNotOnePair() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_2);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_2);
+		player.getCards()[1] = new Card(CLUBS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_3));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(CLUBS, CARD_3));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 
 		assertNull(RankingUtil.getOnePair(player, tableCards));
 	}
@@ -475,13 +475,13 @@ public class RankingTest extends TestCase {
 	public void testGetHighCardRepeatedCards() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		Card fourCard = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_4);
+		Card fourCard = new Card(CLUBS, CARD_4);
 		player.getCards()[0] = fourCard;
 		player.getCards()[1] = fourCard;
 
 		tableCards.add(fourCard);
 		tableCards.add(fourCard);
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
+		tableCards.add(new Card(CLUBS, CARD_2));
 
 		assertEquals(fourCard, RankingUtil.getHighCard(player, tableCards));
 	}
@@ -490,12 +490,12 @@ public class RankingTest extends TestCase {
 	public void testGetHighCardAce() {
 		List<Card> tableCards = new ArrayList<Card>();
 		Player player = new Player();
-		player.getCards()[0] = new Card(CardSuitEnum.HEARTS,
-				CardRankEnum.CARD_9);
-		player.getCards()[1] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_7);
+		player.getCards()[0] = new Card(HEARTS,
+				CARD_9);
+		player.getCards()[1] = new Card(SPADES,
+				CARD_7);
 
-		Card aceCard = new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE);
+		Card aceCard = new Card(CLUBS, ACE);
 		tableCards.add(aceCard);
 		assertEquals(aceCard, RankingUtil.getHighCard(player, tableCards));
 	}
@@ -505,102 +505,102 @@ public class RankingTest extends TestCase {
 	}
 
 	private void setRoyalFlush(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.JACK);
+		player.getCards()[0] = new Card(CLUBS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS, JACK);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.QUEEN));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(CLUBS, QUEEN));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 	}
 
 	private void setStraightFlush(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_3);
+		player.getCards()[0] = new Card(CLUBS, CARD_2);
+		player.getCards()[1] = new Card(CLUBS, CARD_3);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_4));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_5));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_6));
+		tableCards.add(new Card(CLUBS, CARD_4));
+		tableCards.add(new Card(CLUBS, CARD_5));
+		tableCards.add(new Card(CLUBS, CARD_6));
 	}
 
 	private void setFourOfAKind(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_10));
+		tableCards.add(new Card(CLUBS, CARD_10));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(HEARTS, CARD_10));
 	}
 
 	private void setFullHouse(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.HEARTS, CardRankEnum.JACK);
+		player.getCards()[0] = new Card(CLUBS,
+				CARD_10);
+		player.getCards()[1] = new Card(HEARTS, JACK);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.JACK));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_10));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_10));
+		tableCards.add(new Card(CLUBS, JACK));
+		tableCards.add(new Card(HEARTS, CARD_10));
+		tableCards.add(new Card(CLUBS, CARD_10));
 	}
 
 	private void setFlush(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_3);
+		player.getCards()[0] = new Card(CLUBS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS, CARD_3);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(CLUBS, CARD_2));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 	}
 
 	private void setStraight(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_4);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_5);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_4);
+		player.getCards()[1] = new Card(CLUBS, CARD_5);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_3));
-		tableCards.add(new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_6));
+		tableCards.add(new Card(CLUBS, CARD_2));
+		tableCards.add(new Card(HEARTS, CARD_3));
+		tableCards.add(new Card(SPADES, CARD_6));
 	}
 
 	private void setThreeOfAKind(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.SPADES,
-				CardRankEnum.CARD_10);
-		tableCards.add(new Card(CardSuitEnum.SPADES, CardRankEnum.ACE));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_10));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.CARD_2));
+		player.getCards()[0] = new Card(CLUBS,
+				CARD_10);
+		player.getCards()[1] = new Card(SPADES,
+				CARD_10);
+		tableCards.add(new Card(SPADES, ACE));
+		tableCards.add(new Card(HEARTS, CARD_10));
+		tableCards.add(new Card(HEARTS, CARD_2));
 	}
 
 	private void setTwoPair(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.JACK);
+		player.getCards()[0] = new Card(CLUBS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS, JACK);
 
-		tableCards.add(new Card(CardSuitEnum.SPADES, CardRankEnum.CARD_10));
-		tableCards.add(new Card(CardSuitEnum.HEARTS, CardRankEnum.JACK));
+		tableCards.add(new Card(SPADES, CARD_10));
+		tableCards.add(new Card(HEARTS, JACK));
 	}
 
 	private void setOnePair(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS,
-				CardRankEnum.CARD_10);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS,
+				CARD_10);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(CLUBS, CARD_2));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 	}
 
 	private void setHighCard(Player player, List<Card> tableCards) {
-		player.getCards()[0] = new Card(CardSuitEnum.DIAMONDS,
-				CardRankEnum.CARD_10);
-		player.getCards()[1] = new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_9);
+		player.getCards()[0] = new Card(DIAMONDS,
+				CARD_10);
+		player.getCards()[1] = new Card(CLUBS, CARD_9);
 
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.CARD_2));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.KING));
-		tableCards.add(new Card(CardSuitEnum.CLUBS, CardRankEnum.ACE));
+		tableCards.add(new Card(CLUBS, CARD_2));
+		tableCards.add(new Card(CLUBS, KING));
+		tableCards.add(new Card(CLUBS, ACE));
 	}
 }

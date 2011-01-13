@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.cantero.games.pokertexas.Card.CardRankEnum;
-import com.cantero.games.pokertexas.Card.CardSuitEnum;
+import org.bmnds.games.poker.texasholdem.CardRankEnum;
+import org.bmnds.games.poker.texasholdem.CardSuitEnum;
 
 public class Deck implements IDeck, Serializable {
 
@@ -26,8 +26,8 @@ public class Deck implements IDeck, Serializable {
 
 	private void createDeck() {
 		cards = new ArrayList<Card>();
-		for (CardSuitEnum suit : Card.CardSuitEnum.values()) {
-			for (CardRankEnum rank : Card.CardRankEnum.values()) {
+		for (CardSuitEnum suit : CardSuitEnum.values()) {
+			for (CardRankEnum rank : CardRankEnum.values()) {
 				cards.add(new Card(suit, rank));
 			}
 		}

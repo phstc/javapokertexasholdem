@@ -3,7 +3,7 @@ package com.cantero.games.pokertexas;
 import java.io.Serializable;
 import java.util.List;
 
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
+import org.bmnds.games.poker.texasholdem.RankingEnum;
 
 public class Player implements IPlayer, Serializable {
 

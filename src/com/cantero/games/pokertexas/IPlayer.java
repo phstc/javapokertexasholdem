@@ -2,7 +2,7 @@ package com.cantero.games.pokertexas;
 
 import java.util.List;
 
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
+import org.bmnds.games.poker.texasholdem.RankingEnum;
 
 public interface IPlayer {
 	public Card[] getCards();

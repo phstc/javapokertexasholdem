@@ -2,18 +2,13 @@ package com.cantero.games.pokertexas;
 
 import java.io.Serializable;
 
+import org.bmnds.games.poker.texasholdem.CardRankEnum;
+import org.bmnds.games.poker.texasholdem.CardSuitEnum;
+
 public class Card implements Serializable {
 
 	private static final long serialVersionUID = 8343990871159439035L;
 
-	public enum CardSuitEnum {
-		CLUBS, DIAMONDS, HEARTS, SPADES
-	}
-	
-	public enum CardRankEnum {
-		CARD_2, CARD_3, CARD_4, CARD_5, CARD_6, CARD_7, CARD_8, CARD_9, CARD_10, JACK, QUEEN, KING, ACE
-	}
-	
 	private CardSuitEnum suit;
 	private CardRankEnum rank;
 
@@ -31,35 +26,7 @@ public class Card implements Serializable {
 	}
 
 	public Integer getRankToInt() {
-		switch (rank) {
-		case CARD_2:
-			return 2;
-		case CARD_3:
-			return 3;
-		case CARD_4:
-			return 4;
-		case CARD_5:
-			return 5;
-		case CARD_6:
-			return 6;
-		case CARD_7:
-			return 7;
-		case CARD_8:
-			return 8;
-		case CARD_9:
-			return 9;
-		case CARD_10:
-			return 10;
-		case JACK:
-			return 11;
-		case QUEEN:
-			return 12;
-		case KING:
-			return 13;
-		case ACE:
-			return 14;
-		}
-		return null;
+		return rank.ordinal();
 	}
 
 	@Override

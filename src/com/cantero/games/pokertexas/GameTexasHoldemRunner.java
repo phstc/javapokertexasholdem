@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.cantero.games.pokertexas.RankingUtil.RankingEnum;
+import org.bmnds.games.poker.texasholdem.RankingEnum;
 
 public class GameTexasHoldemRunner {
 
