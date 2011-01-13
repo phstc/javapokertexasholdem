@@ -5,3 +5,4 @@
 mkmf.log
 target/*
 stats*.csv
+*.settings*
