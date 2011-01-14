@@ -2,11 +2,11 @@
 
 You can see the Texas Hold'em Poker implementation in action on http://pablocantero.com/javapokertexasholdem-demo
 
-The javapokertexasholdem-demo is not part of this implemetation, it's external project
+The javapokertexasholdem-demo is not part of this implemetation, it's an external project
 
-The Texas Hold'em Poker implementation is only a "core engine" without presentation tier
+The Texas Hold'em Poker implementation is only an "core engine" without the presentation tier
 
-My suggest is to use this project like a black box library. If your system uses other types of card or game flow, the best way is encapsulate it, in an Adapter, Decorator, Proxy or other design patterns 
+My suggest is to use this project like a black box library. If your system uses other types of card or game flow, the best way to use it, is encapsulate it, in an Adapter, Decorator, Proxy or other
 
 === Check out the following example
 
@@ -61,7 +61,9 @@ The IPlayer.getRankingEnum() method returns RankingEnum that contains the actual
 
 === Performance test
 
-GameTexasHoldemRunner.main() execute this performance tests and output two CSV reposts 
+GameTexasHoldemRunner.main() executes the performance test and output it in two CSV report files 
+
+=== Results
 
 * Macbook pro
 * HD ATA de 320 GB (5.400 rpm)
@@ -71,7 +73,7 @@ GameTexasHoldemRunner.main() execute this performance tests and output two CSV r
 * 100000 executions = 6 seconds
 * 10000 executions = 1 seconds
 
-==== Reports 
+==== Generated reports 
 
 Example for 10000 executions 
 
@@ -79,7 +81,7 @@ Example for 10000 executions
 	getStatsSimple - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-simple.csv
 	getStatsFull - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-full.csv
 	
-===== getStatsSimple
+===== stats simple
 
 Columns:
  
@@ -87,7 +89,7 @@ Columns:
 * COUNT = how many times the same RankingEnum winner occurs
 * PERCENT = percentual of the COUNT compared with all executions
 
-===== getStatsFull
+===== stats full
 
 Columns: 
 
