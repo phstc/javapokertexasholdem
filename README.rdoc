@@ -1,10 +1,10 @@
-== It’s a Java SE implemention for Texas Hold’em Poker
+== It's a Java SE implemention for Texas Hold'em Poker
 
-You can see the Texas Hold’em Poker implementation in action on http://pablocantero.com/javapokertexasholdem-demo
+You can see the Texas Hold'em Poker implementation in action on http://pablocantero.com/javapokertexasholdem-demo
 
-The javapokertexasholdem-demo is not part of this implemetation, it’s external project
+The javapokertexasholdem-demo is not part of this implemetation, it's external project
 
-The Texas Hold’em Poker implementation is only a "core engine" without presentation tier
+The Texas Hold'em Poker implementation is only a "core engine" without presentation tier
 
 My suggest is to use this project like a black box library. If your system uses other types of card or game flow, the best way is encapsulate it, in an Adapter, Decorator, Proxy or other design patterns 
 
@@ -46,7 +46,7 @@ My suggest is to use this project like a black box library. If your system uses 
 
 The IPlayer.getRankingEnum() method returns RankingEnum that contains the actual ranking of the player
 	
-	public static enum RankingEnum {
+	public enum RankingEnum { {
 		ROYAL_FLUSH, 
 		STRAIGHT_FLUSH, 
 		FOUR_OF_A_KIND, 
@@ -105,7 +105,7 @@ Columns:
 
 == Do you want to improve this project
 
-You’re welcome to make your contributions and send them as a pull request
+You're welcome to make your contributions and send them as a pull request
  
 === Thanks 
 
