@@ -24,14 +24,13 @@ My suggest is to use this project like a black box library. If your system uses 
 	game.betTurn();
 	List<IPlayer> winnerList = game.getWinner();
 	
+        // Getting the result
 	if(winnerList.size() > 1){
 		//DRAW GAME
-	} 
-	if(winnerList.contains(homer)) {
+	} else if(winnerList.contains(homer)) {
 		//HOMER WINNER
 		//WINNER HAND: homer.getRankingEnum();
-	} 
-	if(winnerList.contains(flanders)) {
+	} else if(winnerList.contains(flanders)) {
 		//FLANDERS WINNER
 		//WINNER HAND: flanders.getRankingEnum();
 	}
