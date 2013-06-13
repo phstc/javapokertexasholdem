@@ -1,8 +1,10 @@
-== It's a Java SE implemention for Texas Hold'em Poker
+# It's a Java SE implemention for Texas Hold'em Poker
 
 This Texas Hold'em Poker implementation is only a core engine without the presentation tier.
 
-=== Check out the following example
+## Check out the following example
+
+```java
 
 	GameTexasHoldem game = new GameTexasHoldem();
 	IPlayer homer = new Player();
@@ -36,9 +38,11 @@ This Texas Hold'em Poker implementation is only a core engine without the presen
 	homer.getRankingEnum();
 	flanders.getRankingEnum();
 	// IPlayer.getRankingEnum() can be changed in deal, call flop, bet river and bet turn.
+```
 
 The IPlayer.getRankingEnum() method returns RankingEnum which contains the actual ranking of the player.
-	
+
+```java
 	public enum RankingEnum { {
 		ROYAL_FLUSH, 
 		STRAIGHT_FLUSH, 
@@ -50,13 +54,14 @@ The IPlayer.getRankingEnum() method returns RankingEnum which contains the actua
 		TWO_PAIR, 
 		ONE_PAIR, 
 		HIGH_CARD
-	} 
+	}
+```
 
-=== Performance test
+## Performance test
 
 GameTexasHoldemRunner.main() executes the performance test and outputs it in two CSV report files 
 
-=== Results
+### Results
 
 * Macbook pro
 * HD ATA de 320 GB (5.400 rpm)
@@ -66,7 +71,7 @@ GameTexasHoldemRunner.main() executes the performance test and outputs it in two
 * 100000 executions = 6 seconds
 * 10000 executions = 1 seconds
 
-==== Generated reports 
+### Generated reports 
 
 Example for 10000 executions 
 
@@ -74,7 +79,7 @@ Example for 10000 executions
 	getStatsSimple - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-simple.csv
 	getStatsFull - OK - /Users/pablo/workspace/javapokertexasholdem/stats10000-full.csv
 	
-===== stats simple
+#### stats simple
 
 Columns:
  
@@ -82,7 +87,7 @@ Columns:
 * COUNT = how many times the same RankingEnum winner occurs
 * PERCENT = percentual of the COUNT compared with all executions
 
-===== stats full
+#### stats full
 
 Columns: 
 
