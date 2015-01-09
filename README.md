@@ -1,6 +1,6 @@
 # Java SE implemention for Texas Hold'em Poker
 
-It's a core engine implentation of Texas Hold'em Poker. It doesn't include the presentation tier.
+It's fully functional core engine implentation of Texas Hold'em Poker.
 
 ## Check out the following example
 
