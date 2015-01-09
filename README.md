@@ -1,6 +1,6 @@
-# It's a Java SE implemention for Texas Hold'em Poker
+# Java SE implemention for Texas Hold'em Poker
 
-This Texas Hold'em Poker implementation is only a core engine without the presentation tier.
+It's a core engine implentation of Texas Hold'em Poker. It doesn't include the presentation tier.
 
 ## Check out the following example
 
@@ -59,7 +59,7 @@ The IPlayer.getRankingEnum() method returns RankingEnum which contains the actua
 
 ## Performance test
 
-GameTexasHoldemRunner.main() executes the performance test and outputs it in two CSV report files 
+GameTexasHoldemRunner.main() executes the performance test and outputs it in two CSV report files.
 
 ### Results
 
